@@ -38,5 +38,20 @@
 | vfm | table-fit | ee8337d | 10 | Table text shrinks to 0.6 on slides (WIP) |
 | vfm | table-fit | 3186f18 | 14 | Fix table resizing on slides: slide rule out-ranks .markdownBody table (WIP) |
 | vfm | table-fit | af1bfe9 | 17 | Scale table cell padding and line height with the table text (WIP) |
+| vfm-preview | editor-sync | 91fa496 | 1 | API: revealLine host message and the vfmPreview.revealInPreview command with its menu and key (WIP) |
+| vfm-preview | editor-sync | b78e723 | 0 | Docs: UC-41, UC-42, REQ-251 to REQ-254, manual tests MT-21/22, README, memory note (WIP) |
+| vfm-preview | editor-sync | 9d0de69 | 103 | Tests: slideForLine and thumbnail structure; mapping generator and mapping (WIP) |
+| vfm-preview | editor-sync | c6f638c | 2 | Tests: import slideForLine directly so it counts in coverage (WIP) |
+| vfm-preview | editor-sync | e7749b7 | 1 | Tests: map the direct unit tests (WIP) |
+| vfm-preview | editor-sync | e370910 | 127 | Thumbnail numbers below thumbnails with a separator; editor-to-preview jump in document and slide mode |
+| vfm | conformance | 95d09c5 | 199 | API: test-only helpers (HTML normalizer, conformance runner), fixture builder and fixtures, coverage script (WIP) |
+| vfm | conformance | 059ba4e | 122 | API: tools/coverage_mapped.py, line coverage that includes code the tests run through esbuild bundles (WIP) |
+| vfm | conformance | 53d8e46 | 0 | Docs: REQ-301 to REQ-317, UC-43 to UC-46, tutorial, README (WIP) |
+| vfm | conformance | b9f25d9 | 313 | Tests: conformance, features and tutorial tests, ledger of differences, mapping (WIP) |
+| vfm | conformance | e8d3cec | 36 | Tests: direct unit tests of the highlight and labels plugins and the figure handler, so they count in coverage (WIP) |
+| vfm | conformance | c6fa986 | 0 | Tests: mapping includes the direct unit tests (WIP) |
+| vfm | conformance | 0b75a0c | 3 | Tests: give the direct pipeline a file so labels can read the source text (WIP) |
+| vfm | conformance | aefea8a | 2 | Tests: keep newlines inside attributes in the direct helper (WIP) |
+| vfm | conformance | 3ec460a | 35 | Fix four defects found by the conformance tests: ====, text around an image, alt-text hard break, Markdown inside == |
 
-Total since `main`: 1780
+Total: 2724
