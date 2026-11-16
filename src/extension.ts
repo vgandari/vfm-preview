@@ -412,7 +412,7 @@ async function exportTarget(arg: vscode.Uri | undefined, ask: boolean): Promise<
   return picked ? { uri, mode: picked.mode } : undefined;
 }
 
-async function buildHtml(context: vscode.ExtensionContext, uri: vscode.Uri, mode: Mode, print: boolean): Promise<string | undefined> {
+async function buildHtml(context: vscode.ExtensionContext, uri: vscode.Uri, mode: Mode, print: boolean, embedVideos = true): Promise<string | undefined> {
   const source = await loadSource(uri);
   if (!source) {
     void vscode.window.showErrorMessage(`Cannot read ${uri.fsPath}`);
@@ -426,6 +426,7 @@ async function buildHtml(context: vscode.ExtensionContext, uri: vscode.Uri, mode
     bib: loadBibliography(uri.fsPath, source.text).entries,
     options: renderOptions(mode),
     print,
+    embedVideos,
   });
 }
 
@@ -449,7 +450,9 @@ async function exportHtml(context: vscode.ExtensionContext, arg?: vscode.Uri) {
   if (!target) return;
   const out = await chooseOutput(target.uri, target.mode, "html");
   if (!out) return;
-  const html = await buildHtml(context, target.uri, target.mode, false);
+  // The page lives in the temp folder for this machine: videos stay links to the files, which a browser plays
+  // by their type; embedding them as data: URIs is for files meant to be shared.
+  const html = await buildHtml(context, target.uri, target.mode, false, false);
   if (html === undefined) return;
   fs.writeFileSync(out.fsPath, html);
   void offerOpen(out);

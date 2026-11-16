@@ -445,6 +445,15 @@
       ],
       "kind": "automated"
     },
+    "vfm-preview/tests/extension-polish.test.ts::Open in Browser can leave a video as a link while images are still embedded": {
+      "requirements": [
+        "REQ-147"
+      ],
+      "use_cases": [
+        "UC-17"
+      ],
+      "kind": "automated"
+    },
     "vfm-preview/tests/extension-polish.test.ts::Word writes sub/superscripts as vertically aligned runs": {
       "requirements": [
         "REQ-135"

@@ -91,6 +91,15 @@ test("the HTML export embeds a video of 50 MB or less and leaves a larger one as
   assert.match(out, /!\[Pic\]\(missing\.png\)/);
 });
 
+// Verifies REQ-147 (UC-17)
+test("Open in Browser can leave a video as a link while images are still embedded", () => {
+  writeFileSync(join(work, "link.mov"), Buffer.from("x"));
+  writeFileSync(join(work, "p.png"), Buffer.from("x"));
+  const out = inlineImages("![V](link.mov)\n\n![P](p.png)\n", work, { videos: false });
+  assert.match(out, /!\[V\]\(link\.mov\)/);
+  assert.match(out, /!\[P\]\(data:image\/png;base64,/);
+});
+
 // Verifies REQ-135 (UC-16)
 test("Word writes sub/superscripts as vertically aligned runs", async () => {
   const xml = await unzip(await exportDocument("docx", state("H_{2}O and x^{2}\n")), "word/document.xml");

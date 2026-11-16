@@ -30,6 +30,8 @@ export interface ExportInput {
   /** Entries of the document's `bibliography:` file(s), so `@cite` resolves in the exported page. */
   bib?: Record<string, BibEntry>;
   options: RenderOptions;
+  /** False: leave local videos as links to the files (a page for this machine, such as Open in Browser). Default true. */
+  embedVideos?: boolean;
 }
 
 const MIME: Record<string, string> = {
@@ -53,7 +55,7 @@ const MIME: Record<string, string> = {
 export const MAX_INLINE_VIDEO_BYTES = 50 * 1024 * 1024;
 
 /** Replaces `![alt](relative/path.png)` (or a video, up to 50 MB) with a data URI so the HTML stands alone. */
-export function inlineImages(text: string, baseDir: string): string {
+export function inlineImages(text: string, baseDir: string, options: { videos?: boolean } = {}): string {
   return text.replace(
     /(!\[[^\]]*\]\()\s*(<[^>]+>|[^)\s]+)((?:\s+"[^"]*")?\s*\))/g,
     (whole, open: string, target: string, close: string) => {
@@ -61,6 +63,7 @@ export function inlineImages(text: string, baseDir: string): string {
       if (/^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(raw)) return whole;
       const mime = MIME[path.extname(raw).toLowerCase()];
       if (!mime) return whole;
+      if (mime.startsWith("video/") && options.videos === false) return whole; // linked, not embedded
       try {
         const file = path.resolve(baseDir, decodeURIComponent(raw.split("?")[0]));
         if (mime.startsWith("video/") && fs.statSync(file).size > MAX_INLINE_VIDEO_BYTES) return whole;
@@ -103,7 +106,7 @@ export function standaloneHtml(input: ExportInput & { print: boolean }): string 
 
   const update = {
     type: "update",
-    text: inlineImages(input.text, dir),
+    text: inlineImages(input.text, dir, { videos: input.embedVideos !== false }),
     // Anything left relative (an image that could not be read) still resolves when opened from disk.
     baseUri: pathToFileURL(dir).toString() + "/",
     options: { ...input.options, theme: "vfm", print: input.print },
