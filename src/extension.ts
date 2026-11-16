@@ -343,12 +343,13 @@ class PreviewPanel {
     const style = webview.asWebviewUri(vscode.Uri.joinPath(dist, "main.css"));
     const nonce = Array.from({ length: 24 }, () => Math.random().toString(36)[2]).join("");
     // Nothing the page runs (KaTeX, abcjs, pseudocode.js, Mermaid) may reach the network: no connect-src,
-    // fonts and images only from the extension, the document's folder, or data: URIs. Remote images in the
+    // fonts, images and videos only from the extension, the document's folder, or data: URIs. Remote images and videos in the
     // Markdown are blocked unless vfmPreview.allowRemoteImages is on.
     const remote = vscode.workspace.getConfiguration("vfmPreview").get<boolean>("allowRemoteImages", false);
     const csp = [
       `default-src 'none'`,
       `img-src ${webview.cspSource} data:${remote ? " https:" : ""}`,
+      `media-src ${webview.cspSource} data:${remote ? " https:" : ""}`,
       `style-src ${webview.cspSource} 'unsafe-inline'`,
       `font-src ${webview.cspSource} data:`,
       `script-src 'nonce-${nonce}'`,

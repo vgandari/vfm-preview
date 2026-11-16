@@ -40,9 +40,19 @@ const MIME: Record<string, string> = {
   ".webp": "image/webp",
   ".svg": "image/svg+xml",
   ".avif": "image/avif",
+  // Videos use the image syntax. A .mov is the same container as .mp4 (QuickTime and MP4 share their box
+  // format), and Chromium may refuse a data: URI typed video/quicktime that it plays happily as video/mp4.
+  ".mov": "video/mp4",
+  ".mp4": "video/mp4",
+  ".m4v": "video/mp4",
+  ".webm": "video/webm",
+  ".ogv": "video/ogg",
 };
 
-/** Replaces `![alt](relative/path.png)` with a data URI so the HTML stands alone. */
+/** A video larger than this is left as a link instead of being embedded in the HTML (REQ-147). */
+export const MAX_INLINE_VIDEO_BYTES = 50 * 1024 * 1024;
+
+/** Replaces `![alt](relative/path.png)` (or a video, up to 50 MB) with a data URI so the HTML stands alone. */
 export function inlineImages(text: string, baseDir: string): string {
   return text.replace(
     /(!\[[^\]]*\]\()\s*(<[^>]+>|[^)\s]+)((?:\s+"[^"]*")?\s*\))/g,
@@ -53,6 +63,7 @@ export function inlineImages(text: string, baseDir: string): string {
       if (!mime) return whole;
       try {
         const file = path.resolve(baseDir, decodeURIComponent(raw.split("?")[0]));
+        if (mime.startsWith("video/") && fs.statSync(file).size > MAX_INLINE_VIDEO_BYTES) return whole;
         const data = fs.readFileSync(file).toString("base64");
         return `${open}data:${mime};base64,${data}${close.replace(/^\s+/, " ")}`;
       } catch {
@@ -112,7 +123,7 @@ export function standaloneHtml(input: ExportInput & { print: boolean }): string 
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data: file:; style-src 'unsafe-inline'; font-src data:; script-src 'unsafe-inline'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data: file:; media-src data: file:; style-src 'unsafe-inline'; font-src data:; script-src 'unsafe-inline'">
 <title>${title}</title>
 <style>${css}</style>
 </head>

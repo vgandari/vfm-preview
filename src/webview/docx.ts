@@ -15,6 +15,7 @@ import type { Root } from "mdast";
 import { parseDocument, parseFrontmatter } from "@vfm/pipeline";
 import type { UpdateMessage } from "../protocol";
 import { renderMermaid } from "@vfm/MermaidDiagram";
+import { isVideoUrl } from "@vfm/plugins/video-url";
 import { bibliographyFor } from "./bib";
 import { ensureDefault, esc, IMAGE_MIME, load, pictureFrom, svgToPicture, svgDataUrl, text, toBase64, EMU_PER_PX, type Picture } from "./ooxml";
 
@@ -69,6 +70,7 @@ interface Fmt {
   strike?: boolean;
   underline?: boolean;
   sup?: boolean;
+  sub?: boolean;
   hl?: boolean;
   link?: boolean;
   size?: number;
@@ -106,7 +108,8 @@ function rPr(f: Fmt): string {
     (f.strike ? "<w:strike/>" : "") +
     (f.size ? `<w:sz w:val="${f.size}"/>` : f.code ? '<w:sz w:val="20"/>' : "") +
     (f.hl ? '<w:highlight w:val="yellow"/>' : "") +
-    (f.sup ? '<w:vertAlign w:val="superscript"/>' : "")
+    (f.sup ? '<w:vertAlign w:val="superscript"/>' : "") +
+    (f.sub ? '<w:vertAlign w:val="subscript"/>' : "")
   );
 }
 
@@ -155,6 +158,8 @@ function inlineNode(n: any, ctx: Ctx, f: Fmt): string {
       return inline(n.children, ctx, { ...f, underline: true });
     case "highlight":
       return inline(n.children, ctx, { ...f, hl: true });
+    case "subSup": // `^{x}` and `_{x}`: vertical alignment runs (REQ-135)
+      return inline(n.children, ctx, n.data?.hName === "sup" ? { ...f, sup: true, sub: false } : { ...f, sub: true, sup: false });
     case "inlineCode":
       return run(n.value, { ...f, code: true });
     case "inlineMath":
@@ -173,6 +178,8 @@ function inlineNode(n: any, ctx: Ctx, f: Fmt): string {
       return `<w:hyperlink r:id="${rid}">${inner}</w:hyperlink>`;
     }
     case "image": {
+      // A video cannot be placed in Word: the caption and the file name stand in for it (REQ-148).
+      if (isVideoUrl(n.url)) return run(`[video: ${n.alt ? n.alt + ", " : ""}${decodeURIComponent(String(n.url).split(/[?#]/)[0].split("/").pop() ?? "")}]`, { ...f, i: true });
       const token = `@@IMG${ctx.pending.length}@@`;
       ctx.pending.push(
         pictureFrom(n.url).then((pic) => {

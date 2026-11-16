@@ -206,7 +206,7 @@
         "vfmPreview.allowRemoteImages": {
           "type": "boolean",
           "default": false,
-          "description": "Allow the preview to load images from http(s) URLs in the Markdown. Off by default so the preview makes no network requests."
+          "description": "Allow the preview to load images and videos from http(s) URLs in the Markdown. Off by default so the preview makes no network requests."
         }
       }
     }

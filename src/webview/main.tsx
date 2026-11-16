@@ -99,10 +99,10 @@ function DocumentView({ state }: { state: State }) {
     post({ type: "diagnostics", items: problems });
   }, [problems]);
 
-  // Point relative image URLs at the document's folder.
+  // Point relative image and video URLs at the document's folder.
   useLayoutEffect(() => {
     const base = baseUri.endsWith("/") ? baseUri : baseUri + "/";
-    bodyRef.current?.querySelectorAll("img").forEach((img) => {
+    bodyRef.current?.querySelectorAll("img, video").forEach((img) => {
       const src = img.getAttribute("src");
       if (src && !/^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(src)) {
         img.setAttribute("src", new URL(src, base).toString());

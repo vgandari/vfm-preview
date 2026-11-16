@@ -18,6 +18,7 @@ import { XREF_RE } from "@vfm/slides/labels";
 import { ensureDefault, esc, IMAGE_MIME, load, pictureFrom, text, toBase64, EMU_PER_PX, type Picture } from "./ooxml";
 import { mermaidPicture } from "./docx";
 import { CITE_RE_SOURCE, formatReference, splitCiteKeys } from "@vfm/bibliography";
+import { isVideoUrl } from "@vfm/plugins/video-url";
 
 const NS_A = "http://schemas.openxmlformats.org/drawingml/2006/main";
 const NS_R = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";
@@ -75,11 +76,13 @@ interface Fmt {
   code?: boolean;
   strike?: boolean;
   underline?: boolean;
+  /** Shift in thousandths of a percent of the font size: +30000 superscript, -25000 subscript. */
+  baseline?: number;
   size?: number;
 }
 
 const rPr = (f: Fmt) =>
-  `<a:rPr lang="en-US"${f.size ? ` sz="${f.size}"` : ""}${f.b ? ' b="1"' : ""}${f.i ? ' i="1"' : ""}${f.strike ? ' strike="sngStrike"' : ""}${f.underline ? ' u="sng"' : ""} dirty="0">${f.code ? '<a:latin typeface="Courier New"/><a:cs typeface="Courier New"/>' : ""}</a:rPr>`;
+  `<a:rPr lang="en-US"${f.size ? ` sz="${f.size}"` : ""}${f.b ? ' b="1"' : ""}${f.i ? ' i="1"' : ""}${f.strike ? ' strike="sngStrike"' : ""}${f.underline ? ' u="sng"' : ""}${f.baseline ? ` baseline="${f.baseline}"` : ""} dirty="0">${f.code ? '<a:latin typeface="Courier New"/><a:cs typeface="Courier New"/>' : ""}</a:rPr>`;
 const run = (value: string, f: Fmt) => `<a:r>${rPr(f)}<a:t>${esc(value)}</a:t></a:r>`;
 
 interface Ctx {
@@ -104,6 +107,8 @@ function runs(nodes: any[], ctx: Ctx, f: Fmt = {}): string {
           return runs(n.children, ctx, { ...f, strike: true });
         case "underline":
           return runs(n.children, ctx, { ...f, underline: true });
+        case "subSup": // `^{x}` and `_{x}` (REQ-135)
+          return runs(n.children, ctx, { ...f, baseline: n.data?.hName === "sup" ? 30000 : -25000 });
         case "inlineCode":
           return run(n.value, { ...f, code: true });
         case "inlineMath":
@@ -111,6 +116,8 @@ function runs(nodes: any[], ctx: Ctx, f: Fmt = {}): string {
         case "break":
           return "<a:br/>";
         case "image": {
+          // A video cannot be placed here: the caption and the file name stand in for it (REQ-148).
+          if (isVideoUrl(n.url)) return run(`[video: ${n.alt ? n.alt + ", " : ""}${decodeURIComponent(String(n.url).split(/[?#]/)[0].split("/").pop() ?? "")}]`, { ...f, i: true });
           ctx.pending.push(pictureFrom(n.url).then((pic) => void (pic && ctx.pictures.push({ pic, alt: n.alt ?? "" }))));
           return "";
         }
@@ -149,7 +156,7 @@ function paragraphs(nodes: any[], ctx: Ctx, lvl = 0): P[] {
         out.push({ runs: runs(n.children[1].children, ctx), bullet: "none", align: "ctr" });
         break;
       case "paragraph": {
-        if (n.children.length === 1 && n.children[0].type === "image") {
+        if (n.children.length === 1 && n.children[0].type === "image" && !isVideoUrl(n.children[0].url)) {
           runs(n.children, ctx);
           out.push(...caption(n.children[0].data));
         } else out.push({ runs: runs(n.children, ctx), bullet: "none", lvl });
@@ -350,7 +357,7 @@ export async function exportPptx(state: UpdateMessage, templateBase64?: string):
     if (slide.cover) {
       const c = slide.cover;
       if (titlePh) shapes.push(placeholder(titlePh.attrs, "Title", [paraXml({ runs: run(c.title, {}) })]));
-      const sub = [c.subtitle, c.authors.map((a) => a.name).join(", "), c.date].filter(Boolean) as string[];
+      const sub = [c.subtitle, c.authors.map((a) => a.name).join(", "), ...c.affiliations, c.date].filter(Boolean) as string[];
       if (bodyPh && sub.length) shapes.push(placeholder(bodyPh.attrs, "Subtitle", sub.map((t) => paraXml({ runs: run(t, {}), bullet: "none" }))));
     } else {
       let title = runs(slide.title as any[], ctx);

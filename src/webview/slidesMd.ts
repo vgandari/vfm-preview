@@ -21,7 +21,7 @@ const KNOWN = new Set([
   "root", "paragraph", "heading", "text", "emphasis", "strong", "delete", "inlineCode", "code", "link", "image",
   "list", "listItem", "blockquote", "table", "tableRow", "tableCell", "thematicBreak", "break", "html", "math",
   "inlineMath", "footnoteReference", "footnoteDefinition", "linkReference", "imageReference", "definition",
-  "fencedDiv", "highlight", "underline",
+  "fencedDiv", "highlight", "underline", "subSup",
 ]);
 
 const tokenRe = () => new RegExp(`${CITE_RE_SOURCE}|${XREF_RE.source}`, "g");
@@ -119,6 +119,9 @@ const options = {
         },
         underline(node: any, _parent: any, state: any, info: any) {
           return `~${state.containerPhrasing(node, info)}~`;
+        },
+        subSup(node: any, _parent: any, state: any, info: any) {
+          return `${node.data?.hName === "sup" ? "^" : "_"}{${state.containerPhrasing(node, info)}}`;
         },
       },
     },
