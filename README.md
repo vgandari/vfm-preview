@@ -60,7 +60,7 @@ not in the file shows as a red "unknown citation" marker. Citations work in docu
 
 See `docs/slide-polish.md`: `theme-color:` in the YAML header tints the title and section slides and colors the
 title rule; the title slide lists affiliations; captions accept `$math$`; `H_{2}O` and `x^{2}` work outside math;
-`![Caption](clip.mov)` embeds a video with the image syntax; table text is a little smaller.
+a video file (`.mov`, `.mp4`, …) written with the image syntax embeds as a video (see `docs/slide-polish.md`); table text is a little smaller.
 Double-clicking a slide title or lead-in jumps to its line in the file.
 
 The extension imports the renderer from the sibling folder `../vfm` through the alias `@vfm`
