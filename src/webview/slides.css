@@ -149,6 +149,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  align-items: stretch;
   border-right: 1px solid var(--vscode-panel-border, rgba(128, 128, 128, 0.3));
 }
 .vfm-thumb {
@@ -165,20 +166,32 @@
 .vfm-thumb:focus-visible { outline-color: var(--vscode-focusBorder, #3794ff); }
 .vfm-thumb.vfm-current { outline-color: var(--vscode-focusBorder, #3794ff); outline-width: 3px; }
 .vfm-thumb .vfm-mini { pointer-events: none; background: var(--color-canvas-default, #fff); }
-.vfm-thumb-number {
-  position: absolute;
-  left: -2px;
-  top: -2px;
-  z-index: 2;
-  padding: 0 5px;
-  border-radius: 3px;
-  font: 600 10px var(--vscode-font-family, sans-serif);
-  background: var(--vscode-badge-background, #4d4d4d);
-  color: var(--vscode-badge-foreground, #fff);
+.vfm-thumb-item {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--vscode-panel-border, rgba(128, 128, 128, 0.3));
 }
+.vfm-thumb-item:last-child { border-bottom: none; }
+.vfm-thumb-number {
+  margin-top: 6px;
+  text-align: center;
+  font: 600 11px var(--vscode-font-family, sans-serif);
+  color: var(--vscode-descriptionForeground, #888);
+}
+.vfm-thumb-number.vfm-current { color: var(--vscode-focusBorder, #3794ff); }
 @media (max-width: 520px) {
   .vfm-thumbs { display: none; }
 }
 @media print {
   .vfm-thumbs { display: none; }
 }
+
+/* Document mode: where "Show cursor position in preview" landed */
+@keyframes vfm-flash {
+  from { outline-color: var(--vscode-focusBorder, #3794ff); background-color: color-mix(in srgb, var(--vscode-focusBorder, #3794ff) 22%, transparent); }
+  to { outline-color: transparent; background-color: transparent; }
+}
+.vfm-flash { outline: 2px solid transparent; outline-offset: 3px; border-radius: 3px; animation: vfm-flash 1.4s ease-out; }

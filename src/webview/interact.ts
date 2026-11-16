@@ -86,3 +86,31 @@ export function lineForTop(list: Anchor[], y: number): number | undefined {
   if (!after || after.top === before.top || before.top > y) return before.line;
   return before.line + ((y - before.top) / (after.top - before.top)) * (after.line - before.line);
 }
+
+/** The rendered block that holds source `line`: the last one starting at or before it (the first when none does). */
+export function blockForLine(root: HTMLElement, line: number): HTMLElement | undefined {
+  let best: HTMLElement | undefined;
+  let bestLine = -Infinity;
+  let first: HTMLElement | undefined;
+  let firstLine = Infinity;
+  root.querySelectorAll<HTMLElement>("[data-line]").forEach((el) => {
+    const l = Number(el.dataset.line);
+    if (l <= line && l >= bestLine) {
+      best = el;
+      bestLine = l;
+    }
+    if (l < firstLine) {
+      first = el;
+      firstLine = l;
+    }
+  });
+  return best ?? first;
+}
+
+/** Briefly outline `el` so the eye finds where the cursor's line landed. */
+export function flash(el: HTMLElement) {
+  el.classList.remove("vfm-flash");
+  void el.offsetWidth; // restart the animation when flashed twice in a row
+  el.classList.add("vfm-flash");
+  setTimeout(() => el.classList.remove("vfm-flash"), 1400);
+}

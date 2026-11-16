@@ -16,6 +16,9 @@ import {
 import styles from "@vfm/CustomMarkdown.module.css";
 import { STAGE_WIDTH, STAGE_HEIGHT } from "@vfm/constants";
 import { bibliographyFor } from "./bib";
+import { slideForLine } from "./slideForLine";
+import { expandedLine } from "./interact";
+import type { HostMessage } from "../protocol";
 import type { BibEntry } from "@vfm/bibliography";
 
 const STAGE_W = STAGE_WIDTH;
@@ -147,6 +150,21 @@ export default function Slides({ text, baseUri, sourceMap, bib, maxHeadings, pri
       setStep(0);
     }
   }, [total, index]);
+
+  // "Show cursor position in preview": jump to the slide that shows the editor's line.
+  const latestDeck = useRef({ deck, sourceMap });
+  latestDeck.current = { deck, sourceMap };
+  useEffect(() => {
+    const onMessage = (e: MessageEvent<HostMessage>) => {
+      if (e.data?.type !== "revealLine") return;
+      const { deck: d, sourceMap: map } = latestDeck.current;
+      if (!d || d.slides.length === 0) return;
+      setIndex(slideForLine(d.slides, expandedLine(e.data.line, map)));
+      setStep(0);
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
 
   const slide = deck?.slides[index];
   const lastStep = slide ? slide.steps.length - 1 : 0;
@@ -511,19 +529,22 @@ function Thumb({ deck, index, current, onPick, title }: { deck: SlideDeck; index
   useEffect(() => {
     if (current) box.current?.scrollIntoView({ block: "nearest" });
   }, [current]);
+  // The number sits centered below its thumbnail; a rule under it separates it from the next thumbnail.
   return (
-    <button
-      ref={box}
-      type="button"
-      className={`vfm-thumb${current ? " vfm-current" : ""}`}
-      onClick={onPick}
-      title={`${index + 1}. ${title}`}
-      aria-label={`Go to slide ${index + 1}: ${title}`}
-      aria-current={current ? "true" : undefined}
-    >
-      <span className="vfm-thumb-number">{index + 1}</span>
-      {near ? <MiniStage deck={deck} index={index} scale={THUMB_SCALE} /> : <span className="vfm-mini" style={{ width: STAGE_W * THUMB_SCALE, height: STAGE_H * THUMB_SCALE }} />}
-    </button>
+    <div className="vfm-thumb-item" data-slide={index + 1}>
+      <button
+        ref={box}
+        type="button"
+        className={`vfm-thumb${current ? " vfm-current" : ""}`}
+        onClick={onPick}
+        title={`${index + 1}. ${title}`}
+        aria-label={`Go to slide ${index + 1}: ${title}`}
+        aria-current={current ? "true" : undefined}
+      >
+        {near ? <MiniStage deck={deck} index={index} scale={THUMB_SCALE} /> : <span className="vfm-mini" style={{ width: STAGE_W * THUMB_SCALE, height: STAGE_H * THUMB_SCALE }} />}
+      </button>
+      <span className={`vfm-thumb-number${current ? " vfm-current" : ""}`} aria-hidden="true">{index + 1}</span>
+    </div>
   );
 }
 

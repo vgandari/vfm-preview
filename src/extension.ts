@@ -207,6 +207,13 @@ class PreviewPanel {
     return this.ready ? Promise.resolve() : new Promise((resolve) => this.onReady.push(resolve));
   }
 
+  /** The editor's cursor line (1-based): the preview scrolls to it (document) or shows its slide (slides). */
+  revealLine(line: number) {
+    this.panel.reveal(undefined, true);
+    const message: HostMessage = { type: "revealLine", line };
+    void this.whenReady().then(() => this.panel.webview.postMessage(message));
+  }
+
   /** Double click in the preview: show that place in the editor, on the clicked word when it is on the line. */
   private async reveal(loc: { file?: string; line: number }, word?: string) {
     const file = loc.file ?? this.uri.fsPath;
@@ -591,6 +598,12 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("vfmPreview.exportPowerPoint", (arg?: vscode.Uri) => exportViaPreview(context, "pptx", arg)),
     vscode.commands.registerCommand("vfmPreview.exportSlidesMarkdown", (arg?: vscode.Uri) => exportViaPreview(context, "slides-md", arg)),
     vscode.commands.registerCommand("vfmPreview.openInBrowser", (arg?: vscode.Uri) => openInBrowser(context, arg)),
+    vscode.commands.registerCommand("vfmPreview.revealInPreview", () => {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) return;
+      const panel = PreviewPanel.show(context, editor.document.uri, vscode.ViewColumn.Beside);
+      panel?.revealLine(editor.selection.active.line + 1);
+    }),
     vscode.commands.registerCommand("vfmPreview.showSlides", () => PreviewPanel.current()?.setMode("slides")),
     vscode.commands.registerCommand("vfmPreview.showDocument", () => PreviewPanel.current()?.setMode("document")),
     diagnostics,

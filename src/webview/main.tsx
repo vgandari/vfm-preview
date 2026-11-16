@@ -14,7 +14,7 @@ import Slides, { ProblemList } from "./Slides";
 import type { HostMessage, UpdateMessage, WebviewMessage } from "../protocol";
 import { exportDocument } from "./exports";
 import { bibliographyFor } from "./bib";
-import { anchors, expandedLine, lineForTop, lineOwner, locOf, mainLine, topForLine, type SourceMap } from "./interact";
+import { anchors, blockForLine, expandedLine, flash, lineForTop, lineOwner, locOf, mainLine, topForLine, type SourceMap } from "./interact";
 
 declare function acquireVsCodeApi(): { postMessage(msg: WebviewMessage): void };
 const vscode = acquireVsCodeApi();
@@ -45,6 +45,14 @@ function useScrollSync(bodyRef: React.RefObject<HTMLDivElement | null>, sourceMa
   map.current = sourceMap;
   useEffect(() => {
     const onMessage = (e: MessageEvent<HostMessage>) => {
+      if (e.data.type === "revealLine" && bodyRef.current) {
+        const el = blockForLine(bodyRef.current, expandedLine(e.data.line, map.current));
+        if (!el) return;
+        quiet(600);
+        el.scrollIntoView({ block: "center", behavior: "smooth" });
+        flash(el);
+        return;
+      }
       if (e.data.type !== "scroll" || !bodyRef.current) return;
       const line = expandedLine(e.data.line, map.current);
       const top = topForLine(anchors(bodyRef.current), line);
