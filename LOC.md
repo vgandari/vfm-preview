@@ -53,5 +53,11 @@
 | vfm | conformance | 0b75a0c | 3 | Tests: give the direct pipeline a file so labels can read the source text (WIP) |
 | vfm | conformance | aefea8a | 2 | Tests: keep newlines inside attributes in the direct helper (WIP) |
 | vfm | conformance | 3ec460a | 35 | Fix four defects found by the conformance tests: ====, text around an image, alt-text hard break, Markdown inside == |
+| vfm-preview | slides-tutorial | fe4cbe7 | 2 | Tests: mapping generator knows the slides tutorial tests and UC-47 (WIP) |
+| vfm | slides-tutorial | 80923f9 | 56 | API: test helpers that find, read and summarize the tutorial's example decks (WIP) |
+| vfm | slides-tutorial | dc31d83 | 1 | API: loadApi exports renderSlide and renderNotes from the same bundle as react-dom/server, so slides that use hooks can be rendered in tests (WIP) |
+| vfm | slides-tutorial | 700335d | 0 | Docs: slides tutorial, eleven example decks, UC-47 and REQ-318 to REQ-320, README (WIP) |
+| vfm | slides-tutorial | 142779b | 0 | Docs: references already say what they point at ("Equation 1", not "Equation Equation 1"); block label for a single equation; pseudo-syntax shown as text (WIP) |
+| vfm | slides-tutorial | fb86c23 | 200 | Tests: the slides tutorial's example decks build and show the structure the tutorial promises; mapping (WIP) |
 
-Total: 2724
+Total: 2983
