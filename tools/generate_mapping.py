@@ -14,6 +14,7 @@ SUITES = {
 }
 TEST_FILES = [
     ("vfm", "tests/slide-polish.test.ts"),
+    ("vfm", "tests/slide-colors.test.ts"),
     ("vfm-preview", "tests/extension-polish.test.ts"),
     ("vfm", "test/slides.test.ts"),
     ("vfm", "test/citations.test.ts"),
@@ -83,6 +84,7 @@ MANUAL = {
     "MT-15": (["REQ-171", "REQ-146"], ["UC-20", "UC-17"]),
     "MT-16": (["REQ-101", "REQ-102"], ["UC-13"]),
     "MT-17": (["REQ-151", "REQ-152"], ["UC-18"]),
+    "MT-18": (["REQ-221", "REQ-222", "REQ-211", "REQ-213"], ["UC-24"]),
 }
 
 USE_CASES = {  # use case → requirements it needs; each repository keeps the ones it owns (see below)
@@ -107,6 +109,9 @@ USE_CASES = {  # use case → requirements it needs; each repository keeps the o
     "UC-19": ["REQ-161", "REQ-162", "REQ-163"],
     "UC-20": ["REQ-171", "REQ-172", "REQ-173", "REQ-174"],
     "UC-21": ["REQ-181"],
+    "UC-22": ["REQ-201", "REQ-202", "REQ-207", "REQ-208"],
+    "UC-23": ["REQ-203", "REQ-204", "REQ-205", "REQ-206", "REQ-207", "REQ-208"],
+    "UC-24": ["REQ-211", "REQ-212", "REQ-213", "REQ-214", "REQ-215", "REQ-221", "REQ-222", "REQ-223"],
 }
 
 TEST_RE = re.compile(r'^(?P<pre>(?:\s*//[^\n]*\n)*)(?P<line>test\((?P<q>["\'])(?P<title>(?:(?!(?P=q)).|\\.)*)(?P=q))', re.M)

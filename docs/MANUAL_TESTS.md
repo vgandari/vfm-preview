@@ -28,6 +28,7 @@ video, use any H.264/AAC `.mov` or `.mp4` next to the document.
 | MT-15 | REQ-146, REQ-171 | Slides with: a 500×1600 image alone; a 1600×300 image beside text (`rtext`); two 700×700 images in `2col`; a video in each. | Every picture is whole (not cropped, not overflowing), aspect ratio kept, caption visible; the `2col` slide has one picture per column. |
 | MT-16 | REQ-101, REQ-102 | Deck with `theme-color: "#1a6ea8"`, in a light and a dark VS Code theme. | The title rule is that blue; title and section slides have a pale blue background with dark text in both themes. |
 | MT-17 | REQ-151, REQ-152 | A document and a slide with a paragraph above a table. | Table text is visibly a little smaller than the paragraph; the caption is not. |
+| MT-18 | REQ-221, REQ-222, REQ-211, REQ-213 | Add `title-image: cover.jpg` (a photo next to the deck) to the header of `examples/slide-polish/deck.md`; open the slides. Then point it at an `https://` image with `vfmPreview.allowRemoteImages` off, then on. | The photo fills the title slide, cropped not stretched, under a dark layer with white readable text. The remote image is blocked while the setting is off, and shows when it is on. |
 
 ## Results
 

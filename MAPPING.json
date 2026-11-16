@@ -53,6 +53,11 @@
     ],
     "UC-21": [
       "REQ-181"
+    ],
+    "UC-24": [
+      "REQ-221",
+      "REQ-222",
+      "REQ-223"
     ]
   },
   "test_cases": {
@@ -220,6 +225,56 @@
       ],
       "kind": "automated"
     },
+    "vfm/tests/slide-colors.test.ts::separator-color and theme-color are independent; without the first the rule follows the second": {
+      "requirements": [],
+      "use_cases": [
+        "UC-13"
+      ],
+      "kind": "automated"
+    },
+    "vfm/tests/slide-colors.test.ts::with a theme color, section-color replaces the section tint and the title slide keeps its own": {
+      "requirements": [],
+      "use_cases": [
+        "UC-13"
+      ],
+      "kind": "automated"
+    },
+    "vfm/tests/slide-colors.test.ts::an invalid separator-color or section-color is reported at its header line and the default is used": {
+      "requirements": [],
+      "use_cases": [
+        "UC-11"
+      ],
+      "kind": "automated"
+    },
+    "vfm/tests/slide-colors.test.ts::title-image puts the image behind the title slide's text, under a scrim, in place of the tint": {
+      "requirements": [],
+      "use_cases": [
+        "UC-24"
+      ],
+      "kind": "automated"
+    },
+    "vfm/tests/slide-colors.test.ts::title-image goes through resolveUrl, is preloaded, and cannot break out of its attribute": {
+      "requirements": [],
+      "use_cases": [
+        "UC-24"
+      ],
+      "kind": "automated"
+    },
+    "vfm/tests/slide-colors.test.ts::title-image without a title is reported and ignored": {
+      "requirements": [],
+      "use_cases": [
+        "UC-24",
+        "UC-11"
+      ],
+      "kind": "automated"
+    },
+    "vfm/tests/slide-colors.test.ts::without title-image the title slide is as before": {
+      "requirements": [],
+      "use_cases": [
+        "UC-24"
+      ],
+      "kind": "automated"
+    },
     "vfm-preview/tests/extension-polish.test.ts::the extension reaches vfm through the @vfm alias to the sibling folder": {
       "requirements": [
         "REQ-181"
@@ -262,6 +317,15 @@
       ],
       "use_cases": [
         "UC-17"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/extension-polish.test.ts::the HTML export embeds a local title-image from the YAML header, and only from the header": {
+      "requirements": [
+        "REQ-223"
+      ],
+      "use_cases": [
+        "UC-24"
       ],
       "kind": "automated"
     },
@@ -1030,6 +1094,17 @@
       "requirements": [],
       "use_cases": [
         "UC-13"
+      ],
+      "kind": "manual",
+      "status": "not run"
+    },
+    "manual/MT-18": {
+      "requirements": [
+        "REQ-221",
+        "REQ-222"
+      ],
+      "use_cases": [
+        "UC-24"
       ],
       "kind": "manual",
       "status": "not run"

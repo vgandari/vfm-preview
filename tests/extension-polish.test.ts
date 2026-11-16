@@ -100,6 +100,22 @@ test("Open in Browser can leave a video as a link while images are still embedde
   assert.match(out, /!\[P\]\(data:image\/png;base64,/);
 });
 
+// Verifies REQ-223 (UC-24)
+test("the HTML export embeds a local title-image from the YAML header, and only from the header", () => {
+  writeFileSync(join(work, "cover.jpg"), Buffer.from("x"));
+  for (const quoted of ['title-image: cover.jpg', 'title-image: "cover.jpg"', "title-image: 'cover.jpg'"]) {
+    const out = inlineImages(`---\ntitle: T\n${quoted}\n---\n\nBody\n`, work);
+    assert.match(out, /^title-image: ["']?data:image\/jpeg;base64,[A-Za-z0-9+/=]+["']?$/m, quoted);
+  }
+  const remote = inlineImages("---\ntitle: T\ntitle-image: https://example.com/c.jpg\n---\n", work);
+  assert.match(remote, /title-image: https:\/\/example\.com\/c\.jpg/);
+  const missing = inlineImages("---\ntitle: T\ntitle-image: nope.jpg\n---\n", work);
+  assert.match(missing, /title-image: nope\.jpg/);
+  // The same words in the body are not the header's key.
+  const body = inlineImages("---\ntitle: T\n---\n\ntitle-image: cover.jpg\n", work);
+  assert.match(body, /\ntitle-image: cover\.jpg\n/);
+});
+
 // Verifies REQ-135 (UC-16)
 test("Word writes sub/superscripts as vertically aligned runs", async () => {
   const xml = await unzip(await exportDocument("docx", state("H_{2}O and x^{2}\n")), "word/document.xml");

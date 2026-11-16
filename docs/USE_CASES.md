@@ -38,6 +38,4 @@ Use cases that `vfm` also serves are repeated in `../vfm/docs/USE_CASES.md`.
 
 | ID | Use case | Origin |
 | --- | --- | --- |
-| UC-22 | The author sets the color of the rule under slide titles on its own, without it being tied to the theme color. | request |
-| UC-23 | The author sets the background color of section slides on its own, without it being tied to the theme color. | request |
 | UC-24 | The author replaces the background of the title slide with an image. | request |
