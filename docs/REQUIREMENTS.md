@@ -55,6 +55,18 @@ the VS Code extension (`vfm-preview`), "vfm" is the renderer library in `../vfm`
 | REQ-032 | The preview shall block remote images unless `vfmPreview.allowRemoteImages` is on. | UC-10 | README |
 | REQ-033 | The preview shall publish each directive, bibliography and layout problem to the Problems panel with its file and line. | UC-11 | README |
 
+### Bibliography, footnotes, syntax, music (found while mapping the existing tests)
+
+| ID | Requirement | UC | Source |
+| --- | --- | --- | --- |
+| REQ-034 | vfm shall parse BibTeX entries of any type and field, resolve `crossref` and biblatex aliases without overwriting fields, keep each entry's source text, and report a repeated key, an unreadable entry or a bad crossref. | UC-04 | `bibtex.ts` |
+| REQ-035 | vfm shall format a reference in APA, MLA or Vancouver style for each entry type, and shall not fail or leave stray punctuation when fields are missing. | UC-04 | `bibliography.ts` |
+| REQ-036 | vfm shall resolve each cited key once, treating keys as case-sensitive, and shall validate each entry it receives. | UC-04 | `bibliography.ts` |
+| REQ-037 | vfm shall validate an entry before sending it to the user's own server, send nothing for an invalid one, and describe a refusal or an unreachable server in words the author can act on. | UC-04 | `bibliography-client.ts` |
+| REQ-038 | vfm shall play a score by reading the notes abcjs writes for the tune, following repeats, without loading anything from the network. | UC-06 | `music-audio.ts` |
+| REQ-039 | In slide mode vfm shall show a footnote only on a slide whose text cites it, only when it is defined inside that slide's `@slide` block, numbered from 1 on that slide. | UC-03 | vfm README "Footnotes" |
+| REQ-040 | vfm shall render `~text~` as underline and `~~text~~` as strikethrough, and shall leave a lone tilde as text. | UC-01 | vfm README |
+
 ## B. New in `slide-polish`
 
 ### Theme color (UC-13)

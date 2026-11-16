@@ -1,7 +1,7 @@
 # Use cases
 
 Derived from `README.md`, `update.md`, `slide-directives-spec.md`, `../vfm/README.md` and the comments in the
-source. "Source" names where the use case was found. UC-13 to UC-20 are the work in the `slide-polish` feature;
+source. "Source" names where the use case was found. UC-13 to UC-21 are the work in the `slide-polish` feature;
 the rest describe behavior that already exists. Requirements are in `REQUIREMENTS.md`; the mapping between
 use cases, requirements and test cases is in `MAPPING.json`.
 
@@ -37,3 +37,4 @@ an exported file.
 | UC-18 | The reader finds table text slightly smaller than the surrounding text, so wide tables fit. | request |
 | UC-19 | The author double-clicks a slide title or a lead-in in the slide preview and lands on the line of the file that produced it. | bug report |
 | UC-20 | The author adds images of any size and they are shown whole on the slide; two images on a `2col` slide each get a column. | bug report |
+| UC-21 | The developer builds the extension, in the main working copy or in a `vfm-preview-<feature>` copy, against the sibling `vfm` library. | project note |

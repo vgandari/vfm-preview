@@ -215,7 +215,8 @@
     "build": "node esbuild.mjs",
     "watch": "node esbuild.mjs --watch",
     "typecheck": "tsc --noEmit",
-    "package": "npm run build && npx @vscode/vsce package --allow-missing-repository --skip-license"
+    "package": "npm run build && npx @vscode/vsce package --allow-missing-repository --skip-license",
+    "test": "node --experimental-transform-types --disable-warning=ExperimentalWarning --test \"tests/*.test.ts\""
   },
   "dependencies": {
     "@types/hast": "^3.0.5",
