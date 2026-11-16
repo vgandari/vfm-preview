@@ -12,10 +12,10 @@
 import * as vscode from "vscode";
 import * as fs from "fs";
 import * as path from "path";
-import { parseBibTeX } from "../vfm/bibtex";
-import { parseFrontmatter } from "../vfm/frontmatter";
-import type { BibEntry } from "../vfm/bibliography";
-import type { Diagnostic } from "../vfm/slides/types";
+import { parseBibTeX } from "@vfm/bibtex";
+import { parseFrontmatter } from "@vfm/frontmatter";
+import type { BibEntry } from "@vfm/bibliography";
+import type { Diagnostic } from "@vfm/slides/types";
 
 export interface LoadedBibliography {
   entries: Record<string, BibEntry>;

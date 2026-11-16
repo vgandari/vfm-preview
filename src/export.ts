@@ -16,8 +16,8 @@ import * as path from "path";
 import { execFile } from "child_process";
 import { pathToFileURL } from "url";
 import type { Mode, RenderOptions } from "./protocol";
-import type { SourceLoc } from "../vfm/slides/types";
-import type { BibEntry } from "../vfm/bibliography";
+import type { SourceLoc } from "@vfm/slides/types";
+import type { BibEntry } from "@vfm/bibliography";
 
 export interface ExportInput {
   /** The extension's install folder (holds dist/webview). */

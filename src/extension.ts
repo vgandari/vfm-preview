@@ -1,8 +1,8 @@
 import * as vscode from "vscode";
 import * as path from "path";
 import * as fs from "fs";
-import { expandIncludes } from "../vfm/slides/includes";
-import type { Diagnostic, SourceLoc } from "../vfm/slides/types";
+import { expandIncludes } from "@vfm/slides/includes";
+import type { Diagnostic, SourceLoc } from "@vfm/slides/types";
 import type { ExportFormat, HostMessage, Mode, RenderOptions, WebviewMessage } from "./protocol";
 import { findBrowser, inlineImages, printToPdf, standaloneHtml, writeTemp } from "./export";
 import { parse as parseYaml } from "yaml";

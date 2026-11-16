@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { parseFrontmatter, renderMarkdown, type Affiliation } from "../../vfm/pipeline";
+import { parseFrontmatter, renderMarkdown, type Affiliation } from "@vfm/pipeline";
 
 function affiliationText(a: Affiliation): string {
   const place = [a.city, a.region, a.country].filter(Boolean).join(", ");

@@ -4,7 +4,7 @@
  * in the text sent to the webview, which `sourceMap` turns into a file and line).
  */
 
-import type { SourceLoc } from "../../vfm/slides";
+import type { SourceLoc } from "@vfm/slides";
 
 export type SourceMap = SourceLoc[] | undefined;
 

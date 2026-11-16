@@ -2,13 +2,13 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { createRoot } from "react-dom/client";
 import "katex/dist/katex.min.css";
 // pseudocode.min.css @imports KaTeX's CSS from a CDN; vfm ships it without that line.
-import "../../vfm/pseudocode.css";
+import "@vfm/pseudocode.css";
 import "./theme.css";
-import "../../vfm/slides/slides.css";
+import "@vfm/slides/slides.css";
 import "./slides.css";
-import styles from "../../vfm/CustomMarkdown.module.css";
-import { renderMarkdown, collectRegistry } from "../../vfm/pipeline";
-import { SlideDirectiveError, type Diagnostic } from "../../vfm/slides";
+import styles from "@vfm/CustomMarkdown.module.css";
+import { renderMarkdown, collectRegistry } from "@vfm/pipeline";
+import { SlideDirectiveError, type Diagnostic } from "@vfm/slides";
 import Frontmatter from "./Frontmatter";
 import Slides, { ProblemList } from "./Slides";
 import type { HostMessage, UpdateMessage, WebviewMessage } from "../protocol";

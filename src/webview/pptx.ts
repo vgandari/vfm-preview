@@ -13,11 +13,11 @@
 
 import JSZip from "jszip";
 import type { UpdateMessage } from "../protocol";
-import { buildSlideDeck, type Slide } from "../../vfm/slides";
-import { XREF_RE } from "../../vfm/slides/labels";
+import { buildSlideDeck, type Slide } from "@vfm/slides";
+import { XREF_RE } from "@vfm/slides/labels";
 import { ensureDefault, esc, IMAGE_MIME, load, pictureFrom, text, toBase64, EMU_PER_PX, type Picture } from "./ooxml";
 import { mermaidPicture } from "./docx";
-import { CITE_RE_SOURCE, formatReference, splitCiteKeys } from "../../vfm/bibliography";
+import { CITE_RE_SOURCE, formatReference, splitCiteKeys } from "@vfm/bibliography";
 
 const NS_A = "http://schemas.openxmlformats.org/drawingml/2006/main";
 const NS_R = "http://schemas.openxmlformats.org/officeDocument/2006/relationships";

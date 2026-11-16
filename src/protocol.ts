@@ -1,7 +1,7 @@
 /** Messages between the extension host and the preview webview. */
 
-import type { Diagnostic, SourceLoc } from "../vfm/slides";
-import type { BibEntry } from "../vfm/bibliography";
+import type { Diagnostic, SourceLoc } from "@vfm/slides";
+import type { BibEntry } from "@vfm/bibliography";
 
 /** "document" renders everything; "slides" renders only the `@slide` blocks, as a slideshow. */
 export type Mode = "document" | "slides";

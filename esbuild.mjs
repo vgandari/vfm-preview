@@ -1,9 +1,20 @@
 import * as esbuild from "esbuild";
 import * as fs from "node:fs";
+import * as path from "node:path";
+
+// vfm is a sibling project (../vfm), shared by every <project>-<feature> working copy.
+const vfmDir = path.resolve(process.env.VFM_DIR ?? "../vfm");
+
 
 const watch = process.argv.includes("--watch");
 
-const common = { bundle: true, sourcemap: watch, logLevel: "info" };
+const common = {
+  bundle: true,
+  sourcemap: watch,
+  logLevel: "info",
+  alias: { "@vfm": vfmDir },
+  nodePaths: [path.resolve("node_modules")], // vfm has no node_modules of its own
+};
 
 const extension = {
   ...common,

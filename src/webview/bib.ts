@@ -1,4 +1,4 @@
-import type { BibEntry, BibliographyMap } from "../../vfm/bibliography";
+import type { BibEntry, BibliographyMap } from "@vfm/bibliography";
 
 /**
  * What `@cite` needs: every entry of the document's bibliography file(s), by key. Only when the text

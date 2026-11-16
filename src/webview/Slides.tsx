@@ -12,11 +12,11 @@ import {
   type Measurer,
   type SlideDeck,
   type SourceLoc,
-} from "../../vfm/slides";
-import styles from "../../vfm/CustomMarkdown.module.css";
+} from "@vfm/slides";
+import styles from "@vfm/CustomMarkdown.module.css";
 import { slideFits } from "./fit";
 import { bibliographyFor } from "./bib";
-import type { BibEntry } from "../../vfm/bibliography";
+import type { BibEntry } from "@vfm/bibliography";
 
 const STAGE_W = 1280;
 const STAGE_H = 720;

@@ -12,9 +12,9 @@
 
 import JSZip from "jszip";
 import type { Root } from "mdast";
-import { parseDocument, parseFrontmatter } from "../../vfm/pipeline";
+import { parseDocument, parseFrontmatter } from "@vfm/pipeline";
 import type { UpdateMessage } from "../protocol";
-import { renderMermaid } from "../../vfm/MermaidDiagram";
+import { renderMermaid } from "@vfm/MermaidDiagram";
 import { bibliographyFor } from "./bib";
 import { ensureDefault, esc, IMAGE_MIME, load, pictureFrom, svgToPicture, svgDataUrl, text, toBase64, EMU_PER_PX, type Picture } from "./ooxml";
 

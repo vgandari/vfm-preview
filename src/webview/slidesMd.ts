@@ -12,9 +12,9 @@ import { gfmToMarkdown } from "mdast-util-gfm";
 import { mathToMarkdown } from "mdast-util-math";
 import { visit } from "unist-util-visit";
 import { parse as parseYaml, stringify as stringifyYaml } from "yaml";
-import { buildSlideDeck, type Slide } from "../../vfm/slides";
-import { CITE_RE_SOURCE } from "../../vfm/bibliography";
-import { XREF_RE } from "../../vfm/slides/labels";
+import { buildSlideDeck, type Slide } from "@vfm/slides";
+import { CITE_RE_SOURCE } from "@vfm/bibliography";
+import { XREF_RE } from "@vfm/slides/labels";
 import type { UpdateMessage } from "../protocol";
 
 const KNOWN = new Set([
