@@ -115,6 +115,7 @@ USE_CASES = {  # use case → requirements it needs; each repository keeps the o
     "UC-22": ["REQ-201", "REQ-202", "REQ-207", "REQ-208"],
     "UC-23": ["REQ-203", "REQ-204", "REQ-205", "REQ-206", "REQ-207", "REQ-208"],
     "UC-26": ["REQ-241", "REQ-242", "REQ-243", "REQ-244"],
+    "UC-27": ["REQ-245"],
     "UC-25": ["REQ-231", "REQ-232", "REQ-233", "REQ-234", "REQ-235"],
     "UC-24": ["REQ-211", "REQ-212", "REQ-213", "REQ-214", "REQ-215", "REQ-221", "REQ-222", "REQ-223"],
 }
