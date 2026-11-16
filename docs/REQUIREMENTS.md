@@ -80,3 +80,13 @@ Requirements about the renderer are in `../vfm/docs/REQUIREMENTS.md` (same ID sp
 | ID | Requirement | Method |
 | --- | --- | --- |
 | REQ-181 | The preview shall import vfm through the alias `@vfm`, which resolves to the sibling directory `../vfm` of the project root, so that every `vfm-preview-<feature>` working copy builds against the same library. | I |
+
+## C. New in `slide-colors`
+
+The renderer's requirements for `separator-color`, `section-color` and `title-image` are REQ-201 to REQ-215 in `../vfm/docs/REQUIREMENTS.md`.
+
+| ID | Requirement | Method |
+| --- | --- | --- |
+| REQ-221 | The preview shall resolve a local `title-image` path as it resolves a local image path, relative to the Markdown file, and shall allow the webview to load it. | D |
+| REQ-222 | The preview shall block a remote `title-image` unless `vfmPreview.allowRemoteImages` is on. | T |
+| REQ-223 | The HTML export shall embed a local `title-image` in the file. | D |

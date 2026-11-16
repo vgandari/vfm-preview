@@ -18,6 +18,29 @@ theme-color: "#1a6ea8"
   Anything else is ignored and shows up in the Problems panel as `theme-color`.
 - Without the key nothing changes. The Word and PowerPoint exports use their templates' colors, not this one.
 
+## Separate colors and a title image (REQ-201 to REQ-215, REQ-221 to REQ-223)
+
+```yaml
+---
+title: My talk
+theme-color: "#1a6ea8"       # accent; title slide tint
+separator-color: "#e07b00"   # the rule under slide titles
+section-color: "#0b3954"     # background of section slides, as written
+title-image: images/cover.jpg
+---
+```
+
+- `separator-color` colors only the rule under slide titles. Without it the rule uses `theme-color`.
+- `section-color` is the background of every section slide (a slide that is only a heading, or an agenda), exactly as
+  written, not tinted. Text on it is light when the color is dark and dark when it is light; the switch is at a relative luminance of 0.179 (WCAG 2.x), where white text and dark text have equal contrast, so mid-tones like `#808080` get dark text and `#0b3954` gets light text. Without it, section slides use the tint of `theme-color`.
+- `title-image` replaces the title slide's background. It covers the slide (cropped, not stretched), a dark layer
+  keeps the white title text legible. The path is relative to the Markdown file. A remote URL needs
+  `vfmPreview.allowRemoteImages`. Without a `title` in the header there is no title slide, and the key is reported and ignored.
+- Each key works alone: `section-color` does not need `theme-color`.
+- The title slide keeps the tint of `theme-color` when there is no `title-image`; `section-color` does not touch it.
+- Same color forms as `theme-color`. A bad color is ignored and reported in the Problems panel under its key.
+- The Word and PowerPoint exports do not use these keys.
+
 ## Affiliations on the title slide (REQ-111 to REQ-114)
 
 ```yaml
@@ -88,3 +111,6 @@ out in one column as before.
 - **Can I put two videos side by side?** Yes: a `2col` block holding two videos and no text.
 - **How do I get a lighter background on only one slide?** Not supported: the tint applies to all title and
   section slides, so a deck keeps one look.
+- **A dark `section-color`, but the text is dark?** The switch is by luminance, not hue: a saturated mid-tone such as
+  `#2e8b57` is brighter than it looks and keeps dark text. Darken it a little to get light text.
+- **Can I choose the text color myself?** Not yet: it follows the background.

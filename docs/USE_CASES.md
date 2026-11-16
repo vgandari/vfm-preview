@@ -33,3 +33,11 @@ Use cases that `vfm` also serves are repeated in `../vfm/docs/USE_CASES.md`.
 | UC-17 | The author adds a video, especially a `.mov` file, with the same syntax as an image and plays it in the preview. | request |
 | UC-19 | The author double-clicks a slide title or a lead-in in the slide preview and lands on the line of the file that produced it. | bug report |
 | UC-21 | The developer builds the extension, in the main working copy or in a `vfm-preview-<feature>` copy, against the sibling `vfm` library. | project note |
+
+## New in `slide-colors`
+
+| ID | Use case | Origin |
+| --- | --- | --- |
+| UC-22 | The author sets the color of the rule under slide titles on its own, without it being tied to the theme color. | request |
+| UC-23 | The author sets the background color of section slides on its own, without it being tied to the theme color. | request |
+| UC-24 | The author replaces the background of the title slide with an image. | request |
