@@ -54,9 +54,32 @@ const MIME: Record<string, string> = {
 /** A video larger than this is left as a link instead of being embedded in the HTML (REQ-147). */
 export const MAX_INLINE_VIDEO_BYTES = 50 * 1024 * 1024;
 
-/** Replaces `![alt](relative/path.png)` (or a video, up to 50 MB) with a data URI so the HTML stands alone. */
+/** Reads a local image file as a data URI, or undefined when it is remote, not an image, or unreadable. */
+function dataUri(raw: string, baseDir: string): string | undefined {
+  if (/^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(raw)) return undefined;
+  const mime = MIME[path.extname(raw).toLowerCase()];
+  if (!mime || mime.startsWith("video/")) return undefined;
+  try {
+    return `data:${mime};base64,${fs.readFileSync(path.resolve(baseDir, decodeURIComponent(raw.split("?")[0]))).toString("base64")}`;
+  } catch {
+    return undefined;
+  }
+}
+
+/** Embeds the `title-image:` of the YAML header (REQ-223); the same words in the body are left alone. */
+function inlineTitleImage(text: string, baseDir: string): string {
+  const header = /^---\r?\n[\s\S]*?\r?\n---(?=\r?\n|$)/.exec(text);
+  if (!header) return text;
+  const inlined = header[0].replace(/^(title-image:[ \t]*)(["']?)([^"'\r\n]+?)\2[ \t]*$/m, (whole, key: string, q: string, raw: string) => {
+    const uri = dataUri(raw, baseDir);
+    return uri ? `${key}${q}${uri}${q}` : whole;
+  });
+  return inlined + text.slice(header[0].length);
+}
+
+/** Replaces `![alt](relative/path.png)` (or a video, up to 50 MB) and the header's `title-image` with data URIs so the HTML stands alone. */
 export function inlineImages(text: string, baseDir: string, options: { videos?: boolean } = {}): string {
-  return text.replace(
+  return inlineTitleImage(text, baseDir).replace(
     /(!\[[^\]]*\]\()\s*(<[^>]+>|[^)\s]+)((?:\s+"[^"]*")?\s*\))/g,
     (whole, open: string, target: string, close: string) => {
       const raw = target.startsWith("<") ? target.slice(1, -1) : target;

@@ -13,3 +13,7 @@ metadata:
 - Headings now keep slide-builder classes, so section-slide titles get `.vfm-divider-title` (was silently dropped).
 
 **Why:** each was ambiguous in the request. **How to apply:** ask before changing; see docs/slide-polish.md.
+
+slide-colors (2026-11-15): `separator-color`, `section-color` (literal bg, light text when luminance < 0.179, WCAG equal-contrast point),
+`title-image` (cover + 50 % black scrim + white text). Title slide keeps the theme tint; section-color touches only section slides.
+Branches slide-colors-impl in both repos, NOT merged back: the table-size test fails because CustomMarkdown.module.css was edited to 0.8em by the user (REQ-151 says 0.9) — ask which wins.
