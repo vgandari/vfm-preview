@@ -4,7 +4,7 @@
  *
  * A region (`.vfm-fit`) fits when its content does not overflow vertically. When a region holds
  * exactly one float (an image, score, listing, algorithm, table, theorem...) that is too tall,
- * the float is scaled down to fit rather than dropped, down to MIN_SHRINK. Text and tables are never scaled: a
+ * the float is scaled down to fit rather than dropped, down to MIN_SHRINK. Text is never scaled: a
  * list or paragraph that is too tall does not fit, and the splitter moves content to the next slide,
  * so type size is the same on every slide. A float that is still too tall after shrinking does not fit either.
  */
@@ -13,8 +13,9 @@ export const MIN_SHRINK = 0.5;
 
 /**
  * The floats that may be scaled down to fit: pictures, listings, theorem environments, algorithms, scores,
- * diagrams. Tables are not here on purpose: a table is divided by rows (header repeated) when it is too
- * tall, never shrunk, so its text stays the size of the text around it.
+ * diagrams. Tables are not here on purpose: the splitter sizes a table's text (0.9 down to 0.7 of the text
+ * around it, `slide.tableScale`, REQ-232) and divides it by rows (header repeated) when it is still too tall,
+ * so a table is never scaled by a transform.
  */
 const FLOAT_SELECTOR = [
   "figure",

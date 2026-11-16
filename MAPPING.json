@@ -61,7 +61,7 @@
     ]
   },
   "test_cases": {
-    "vfm/tests/slide-polish.test.ts::theme-color sets the accent on every slide, tints the section slides and colors the title slide as it is": {
+    "vfm/tests/slide-polish.test.ts::theme-color sets the accent on every slide and colors the title and section slides as it is, untinted": {
       "requirements": [],
       "use_cases": [
         "UC-13"
@@ -75,7 +75,7 @@
       ],
       "kind": "automated"
     },
-    "vfm/tests/slide-polish.test.ts::the stylesheet draws the title rule from the accent and mixes it 14% into white for tinted slides": {
+    "vfm/tests/slide-polish.test.ts::the stylesheet draws the title rule from the accent and never tints a color": {
       "requirements": [],
       "use_cases": [
         "UC-13"
@@ -232,7 +232,7 @@
       ],
       "kind": "automated"
     },
-    "vfm/tests/slide-colors.test.ts::with a theme color, section-color replaces the section tint and the title slide keeps its own": {
+    "vfm/tests/slide-colors.test.ts::with a theme color, section-color replaces the theme color on section slides and the title slide keeps it": {
       "requirements": [],
       "use_cases": [
         "UC-13"

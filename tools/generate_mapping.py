@@ -15,6 +15,7 @@ SUITES = {
 TEST_FILES = [
     ("vfm", "tests/slide-polish.test.ts"),
     ("vfm", "tests/slide-colors.test.ts"),
+    ("vfm", "tests/table-fit.test.ts"),
     ("vfm-preview", "tests/extension-polish.test.ts"),
     ("vfm", "test/slides.test.ts"),
     ("vfm", "test/citations.test.ts"),
@@ -83,7 +84,7 @@ MANUAL = {
     "MT-14": (["REQ-143", "REQ-144"], ["UC-17"]),
     "MT-15": (["REQ-171", "REQ-146"], ["UC-20", "UC-17"]),
     "MT-16": (["REQ-101", "REQ-102", "REQ-107"], ["UC-13"]),
-    "MT-17": (["REQ-151", "REQ-152"], ["UC-18"]),
+    "MT-17": (["REQ-151", "REQ-152", "REQ-232"], ["UC-18", "UC-25"]),
     "MT-18": (["REQ-221", "REQ-222", "REQ-211", "REQ-213"], ["UC-24"]),
 }
 
@@ -111,6 +112,7 @@ USE_CASES = {  # use case → requirements it needs; each repository keeps the o
     "UC-21": ["REQ-181"],
     "UC-22": ["REQ-201", "REQ-202", "REQ-207", "REQ-208"],
     "UC-23": ["REQ-203", "REQ-204", "REQ-205", "REQ-206", "REQ-207", "REQ-208"],
+    "UC-25": ["REQ-231", "REQ-232", "REQ-233", "REQ-234"],
     "UC-24": ["REQ-211", "REQ-212", "REQ-213", "REQ-214", "REQ-215", "REQ-221", "REQ-222", "REQ-223"],
 }
 

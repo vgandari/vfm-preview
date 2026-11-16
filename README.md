@@ -58,7 +58,7 @@ not in the file shows as a red "unknown citation" marker. Citations work in docu
 
 ## Theme, affiliations, math captions, sub/superscripts, video
 
-See `docs/slide-polish.md`: `theme-color:` in the YAML header colors the title slide, tints the section slides and colors the
+See `docs/slide-polish.md`: `theme-color:` in the YAML header colors the title and section slides and colors the
 title rule; the title slide lists affiliations; captions accept `$math$`; `H_{2}O` and `x^{2}` work outside math;
 a video file (`.mov`, `.mp4`, …) written with the image syntax embeds as a video (see `docs/slide-polish.md`); table text is a little smaller.
 Double-clicking a slide title or lead-in jumps to its line in the file.
