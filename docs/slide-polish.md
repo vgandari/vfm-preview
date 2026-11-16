@@ -97,7 +97,7 @@ HTML export embeds videos up to 50 MB. Word and PowerPoint get the caption and t
 Table text is 0.9 times the size of the surrounding text in documents. On a slide it starts at 0.9 and, when the table
 does not fit, shrinks in steps of 0.05 down to 0.6 before anything else happens (a 30 px slide shows 27 px at 0.9 and
 18 px at 0.6). A table still too big at 0.6 continues on the next slide with its header repeated, the most rows that
-fit at 0.6 on each. Cell padding and line height shrink with the text, so a smaller table is also a shorter one. Captions keep the surrounding size. One table (or other float) fits on a slide, except on a `2col` slide with no text, where two tables go side by side, one per column (their text shrinks until both fit; if they still do not, the second goes to the next slide). With text on the slide, or in another layout, a second table goes to the next slide. A table is not dropped when the block ends with
+fit at 0.6 on each. Cell padding and line height shrink with the text, so a smaller table is also a shorter one. Captions keep the surrounding size. In `single`, `rtext` and `ltext` a slide holds one table (or other float): a second one goes to the next slide. In `2col` tables flow into the two columns with the headings and text, so two tables, each under its own heading, sit side by side (their text shrinks until both fit; if they still do not, the rest goes to the next slide); a table alone on a `2col` slide takes the whole slide. A table is not dropped when the block ends with
 `@end(lead-in)`: the lead-in goes under the last piece, and the table is shrunk or split to make room for it.
 `code` inside a table is 85 % of the table text.
 
@@ -125,4 +125,4 @@ out in one column as before.
   `#2e8b57` is brighter than it looks and keeps dark text. Darken it a little to get light text.
 - **Can I choose the text color myself?** Not yet: it follows the background.
 - **Why did my table split with one row on the next slide?** The block's `@end(lead-in)` takes room under the table. A table is shrunk first (down to 0.6, padding included); only if it still does not fit does it split. Information about a split (`table-split`) is an info note and is not listed in the Problems panel.
-- **Can I put two tables side by side?** Yes: a `2col` block holding two tables and no text (not even a heading).
+- **Can I put two tables side by side?** Yes: put them in a `2col` block, each under its own heading if you like.

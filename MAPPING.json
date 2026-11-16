@@ -279,28 +279,28 @@
       ],
       "kind": "automated"
     },
-    "vfm/tests/table-fit.test.ts::two tables on a 2col slide with no text go side by side, one per column; a third starts a new slide": {
+    "vfm/tests/table-fit.test.ts::two tables on a 2col slide sit side by side in the columns, with or without headings, text and a lead-in": {
       "requirements": [],
       "use_cases": [
         "UC-26"
       ],
       "kind": "automated"
     },
-    "vfm/tests/table-fit.test.ts::a table and a picture, or the lone table, on a 2col slide behave as for pictures": {
+    "vfm/tests/table-fit.test.ts::a table alone on a 2col slide takes the whole slide; the tables are never dropped": {
       "requirements": [],
       "use_cases": [
         "UC-26"
       ],
       "kind": "automated"
     },
-    "vfm/tests/table-fit.test.ts::with text, or in another layout, a second table still goes to the next slide": {
+    "vfm/tests/table-fit.test.ts::in the other layouts a second table still goes to the next slide": {
       "requirements": [],
       "use_cases": [
         "UC-26"
       ],
       "kind": "automated"
     },
-    "vfm/tests/table-fit.test.ts::two tables that do not fit side by side go to separate slides rather than being dropped": {
+    "vfm/tests/table-fit.test.ts::tables that do not fit side by side go to separate slides rather than being dropped": {
       "requirements": [],
       "use_cases": [
         "UC-26"
