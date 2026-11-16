@@ -39,3 +39,10 @@ an exported file.
 | ID | Use case | Origin |
 | --- | --- | --- |
 | UC-24 | The author replaces the background of the title slide with an image. | request |
+
+## New in `editor-sync`
+
+| ID | Use case | Origin |
+| --- | --- | --- |
+| UC-41 | The author scans the slide thumbnails and reads each slide's number under its thumbnail, with a clear break before the next one. | request |
+| UC-42 | The author puts the cursor on a line of the file and jumps to what that line shows in the preview (the block in document mode, the slide in slide mode). | request |

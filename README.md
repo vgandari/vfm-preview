@@ -53,6 +53,24 @@ not in the file shows as a red "unknown citation" marker. Citations work in docu
   file (an `@include`d file is edited in place), and the preview follows.
 - **Double click** anything to jump to it in the editor; the clicked word is selected when it is on the line.
 - **Scroll sync** (document mode): the preview and the editor follow each other.
+- **Editor → preview.** Put the cursor on a line and run **VFM: Show Cursor Position in Preview** (⌘K J, Ctrl+K J, or the
+  editor's right-click menu). The preview opens beside the editor if it is not open. In document mode it scrolls to the block that
+  holds the line and outlines it for about a second; in slide mode it shows the slide that holds the line (inside an
+  `@slide … @end` block, the continuation slide that starts at or before the line; between blocks, the slide above; before the
+  first block, slide 1). Together with the double click this goes both ways.
+- **Slide thumbnails** (slide mode; the key **T** or the "Slides" button toggles them): each slide's number is centered under its thumbnail, and a thin
+  line separates it from the next thumbnail.
+
+### Questions
+
+**Can I click a point in the file and land on its place in the preview?**
+Yes: **VFM: Show Cursor Position in Preview** (⌘K J). Clicking in the editor does not jump on its own because the editor's cursor moves
+all the time (for example while you type), and a preview that follows every keystroke is distracting. The jump is a command instead.
+Scrolling the editor already moves the document preview along (scroll sync).
+
+**Why did the slide number move below the thumbnail?**
+It used to sit on top of the picture and hid the slide's own corner; under the thumbnail it hides nothing and the separator makes it
+clear which number goes with which slide.
 - Rendered blocks carry `data-line`, the line of your file they came from; this is exact for fenced divs,
   `alg` / `mus` / `mermaid` blocks, YAML headers and included files.
 

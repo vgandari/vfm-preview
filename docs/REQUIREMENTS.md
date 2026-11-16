@@ -83,3 +83,12 @@ The renderer's requirements for `separator-color`, `section-color` and `title-im
 | REQ-221 | The preview shall resolve a local `title-image` path as it resolves a local image path, relative to the Markdown file, and shall allow the webview to load it. | D |
 | REQ-222 | The preview shall block a remote `title-image` unless `vfmPreview.allowRemoteImages` is on. | T |
 | REQ-223 | The HTML export shall embed a local `title-image` named in the YAML header in the file, and shall leave a remote or missing one as written. | T |
+
+## D. New in `editor-sync`
+
+| ID | Requirement | Method |
+| --- | --- | --- |
+| REQ-251 | The slide thumbnail sidebar shall show each slide's number centered below its thumbnail, outside the thumbnail's frame. | T |
+| REQ-252 | The slide thumbnail sidebar shall draw a separator between a slide's number and the thumbnail that follows it. | T |
+| REQ-253 | When the author runs the command `vfmPreview.revealInPreview`, the preview shall open if it is not open, and in document mode shall scroll to the rendered block that holds the cursor's line, including a line of the main file that follows an `@include`, and highlight that block for 1.4 seconds. | D |
+| REQ-254 | When the author runs the command `vfmPreview.revealInPreview` in slide mode, the preview shall show the slide that holds the cursor's line: the slide whose `@slide … @end` block contains the line, the last continuation slide of that block that starts at or before the line, or else the nearest slide above the line, or else the first slide. | T |

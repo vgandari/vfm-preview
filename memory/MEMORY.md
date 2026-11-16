@@ -1,3 +1,4 @@
 - [Project layout](layout.md) — where vfm and vfm-preview live, how they are linked, git quirks
 - [Slide-polish decisions](slide-polish-decisions.md) — design choices to confirm with the user
 - [Sandbox limits](sandbox.md) — what could not be run here (Chrome, VS Code)
+- [Conformance suite](conformance.md) — vfm's CommonMark/GFM test harness, ledger and defects found
