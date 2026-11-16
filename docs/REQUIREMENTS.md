@@ -5,7 +5,7 @@ the VS Code extension (`vfm-preview`), "vfm" is the renderer library in `../vfm`
 **I**nspection, **D**emonstration. Test cases are not written yet for the inferred requirements (see
 `MAPPING.json`); that is on purpose and is tracked as a gap, not as coverage.
 
-Requirements about the renderer are in `../vfm/docs/REQUIREMENTS.md` (same ID space). This file keeps those about the extension.
+Requirements about the renderer, including the layout measurer, are in `../vfm/docs/REQUIREMENTS.md`. This file keeps those about the extension. The same ID in both repositories is not expected to denote the same item. Exports are editor-only: another host provides its own exporters.
 
 ## A. Inferred from existing behavior
 
@@ -22,14 +22,13 @@ Requirements about the renderer are in `../vfm/docs/REQUIREMENTS.md` (same ID sp
 | ID | Requirement | UC | Source |
 | --- | --- | --- | --- |
 | REQ-017 | The preview shall look for a relative `.bib` path next to the Markdown file, then in the containing workspace folder, then in other workspace folders, and shall prefer unsaved editor text. | UC-04 | README |
-| REQ-018 | The preview shall report an unreadable bibliography or unparsable entry in the Problems panel. | UC-04, UC-11 | README |
 
 ### Editing, export, privacy
 
 | ID | Requirement | UC | Source |
 | --- | --- | --- | --- |
 | REQ-023 | When the author clicks a task checkbox, the preview shall rewrite that line in the file in which it was written, including an included file. | UC-07 | README |
-| REQ-024 | When the author double-clicks rendered content that carries a source line, the preview shall reveal that line in the editor and shall select the clicked word when it is on the line. | UC-07 | README |
+| REQ-024 | When the author double-clicks rendered content that carries a source line, including a slide's title or lead-in, the preview shall reveal that line in the editor, in the included file when the line came from one, and shall select the clicked word when it is on the line. | UC-07, UC-19 | README |
 | REQ-025 | The preview shall scroll the editor and the preview together in document mode. | UC-07 | README, `update.md` |
 | REQ-026 | The preview shall export a self-contained HTML file with local images and KaTeX fonts inlined. | UC-08 | README |
 | REQ-027 | The preview shall print the HTML export to PDF with a locally installed browser, one 1280×720 page per slide. | UC-08 | README |
@@ -38,7 +37,7 @@ Requirements about the renderer are in `../vfm/docs/REQUIREMENTS.md` (same ID sp
 | REQ-030 | The preview shall show `@note` text only in the notes panel and the presenter window, and never in document mode, the audience view or the PDF. | UC-09 | README |
 | REQ-031 | The preview and its exports shall carry a Content-Security-Policy with no `connect-src`. | UC-10 | vfm README |
 | REQ-032 | The preview shall block remote images unless `vfmPreview.allowRemoteImages` is on. | UC-10 | README |
-| REQ-033 | The preview shall publish each directive, bibliography and layout problem to the Problems panel with its file and line. | UC-11 | README |
+| REQ-033 | The preview shall publish each directive, bibliography and layout problem to the Problems panel with its file and line, naming the folders tried when a bibliography file is missing. | UC-04, UC-11 | README |
 
 ## B. New in `slide-polish`
 
@@ -69,12 +68,6 @@ Requirements about the renderer are in `../vfm/docs/REQUIREMENTS.md` (same ID sp
 | REQ-147 | The HTML export shall embed a local video of 50 MB or less, and shall leave a link and report a diagnostic for a larger one. | D |
 | REQ-148 | The Word and PowerPoint exports shall write the caption and the file name of a video in place of the video. | T |
 
-### Jump to source from titles and lead-ins (UC-19)
-
-| ID | Requirement | Method |
-| --- | --- | --- |
-| REQ-163 | When the author double-clicks a slide's title or lead-in, the preview shall reveal that line, in the included file when the line came from one. | D |
-
 ### Project layout
 
 | ID | Requirement | Method |
@@ -83,11 +76,10 @@ Requirements about the renderer are in `../vfm/docs/REQUIREMENTS.md` (same ID sp
 
 ## C. New in `slide-colors`
 
-The renderer's requirements for `separator-color`, `section-color` and `title-image` are REQ-201 to REQ-215 in `../vfm/docs/REQUIREMENTS.md`.
+The renderer's requirements for `separator-color`, `section-color` and `title-image` are REQ-201 to REQ-215 in `../vfm/docs/REQUIREMENTS.md`; so is the layout measurer (REQ-244).
 
 | ID | Requirement | Method |
 | --- | --- | --- |
 | REQ-221 | The preview shall resolve a local `title-image` path as it resolves a local image path, relative to the Markdown file, and shall allow the webview to load it. | D |
 | REQ-222 | The preview shall block a remote `title-image` unless `vfmPreview.allowRemoteImages` is on. | T |
 | REQ-223 | The HTML export shall embed a local `title-image` named in the YAML header in the file, and shall leave a remote or missing one as written. | T |
-| REQ-244 | In the slide measurer, the preview shall treat a `2col` slide as not fitting when a table in it is wider than its column, so that vfm shrinks the table text or moves the second table to the next slide instead of clipping it. | T |

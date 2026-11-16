@@ -101,7 +101,7 @@ fit at 0.6 on each. Cell padding and line height shrink with the text, so a smal
 `@end(lead-in)`: the lead-in goes under the last piece, and the table is shrunk or split to make room for it.
 `code` inside a table is 85 % of the table text.
 
-## Jumping to the source (REQ-161 to REQ-163)
+## Jumping to the source (REQ-161, REQ-162 in vfm; REQ-024 in the preview)
 
 In slide mode, double-click a slide title to go to the `@slide[title]` line (or the heading it came from), and
 double-click a lead-in to go to its `@end(...)` line.

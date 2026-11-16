@@ -1,12 +1,12 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import type { ReactElement } from "react";
-import { createRoot } from "react-dom/client";
-import { flushSync } from "react-dom";
 import {
   buildSlideDeck,
   renderSlide,
   renderNotes,
   estimateFits,
+  createDomMeasurer,
+  slideFits,
   SlideDirectiveError,
   type Diagnostic,
   type Measurer,
@@ -14,12 +14,12 @@ import {
   type SourceLoc,
 } from "@vfm/slides";
 import styles from "@vfm/CustomMarkdown.module.css";
-import { slideFits } from "./fit";
+import { STAGE_WIDTH, STAGE_HEIGHT } from "@vfm/constants";
 import { bibliographyFor } from "./bib";
 import type { BibEntry } from "@vfm/bibliography";
 
-const STAGE_W = 1280;
-const STAGE_H = 720;
+const STAGE_W = STAGE_WIDTH;
+const STAGE_H = STAGE_HEIGHT;
 
 /** Every slide renders inside vfm's markdown body so its typography and color tokens apply. */
 const stageClass = `${styles.markdownBody} vfm-body vfm-stage-wrap`;
@@ -34,38 +34,9 @@ const canPresent = typeof window !== "undefined" && !!(window as any).__VFM_EXPO
 const PRESENTER_FEATURES = "popup,width=1200,height=760";
 
 // ─── Fit measurement ─────────────────────────────────────────────────────────
-// Candidates are rendered into an off-screen stage of the real slide size and
-// tested for overflow, so what the splitter decides is what the audience sees.
+// vfm's DOM measurer renders candidates into an off-screen stage and tests them for overflow.
 
-let measureStage: { host: HTMLDivElement; root: ReturnType<typeof createRoot> } | null = null;
-
-function getMeasureStage() {
-  if (!measureStage) {
-    const host = document.createElement("div");
-    host.className = stageClass;
-    host.setAttribute("aria-hidden", "true");
-    Object.assign(host.style, {
-      position: "fixed",
-      left: "-10000px",
-      top: "0",
-      width: `${STAGE_W}px`,
-      height: `${STAGE_H}px`,
-      visibility: "hidden",
-      pointerEvents: "none",
-      background: "transparent",
-    });
-    document.body.appendChild(host);
-    measureStage = { host, root: createRoot(host) };
-  }
-  return measureStage;
-}
-
-const domMeasurer: Measurer = (slide, render) => {
-  const { host, root } = getMeasureStage();
-  flushSync(() => root.render(render()));
-  // Title, lead-in and references are fixed-size, so a full slide shows up as an overflowing region.
-  return slideFits(host, slide.layout === "2col");
-};
+const domMeasurer: Measurer = createDomMeasurer(stageClass);
 
 // ─── Images ──────────────────────────────────────────────────────────────────
 // Their height is unknown until loaded, so load them before measuring anything.

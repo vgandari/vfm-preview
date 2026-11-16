@@ -9,7 +9,7 @@
     ],
     "UC-04": [
       "REQ-017",
-      "REQ-018"
+      "REQ-033"
     ],
     "UC-07": [
       "REQ-023",
@@ -30,7 +30,6 @@
       "REQ-032"
     ],
     "UC-11": [
-      "REQ-018",
       "REQ-033"
     ],
     "UC-13": [
@@ -49,13 +48,10 @@
       "REQ-148"
     ],
     "UC-19": [
-      "REQ-163"
+      "REQ-024"
     ],
     "UC-21": [
       "REQ-181"
-    ],
-    "UC-26": [
-      "REQ-244"
     ],
     "UC-24": [
       "REQ-221",
@@ -279,34 +275,6 @@
       ],
       "kind": "automated"
     },
-    "vfm/tests/table-fit.test.ts::two tables on a 2col slide sit side by side in the columns, with or without headings, text and a lead-in": {
-      "requirements": [],
-      "use_cases": [
-        "UC-26"
-      ],
-      "kind": "automated"
-    },
-    "vfm/tests/table-fit.test.ts::a table alone on a 2col slide takes the whole slide; the tables are never dropped": {
-      "requirements": [],
-      "use_cases": [
-        "UC-26"
-      ],
-      "kind": "automated"
-    },
-    "vfm/tests/table-fit.test.ts::in the other layouts a second table still goes to the next slide": {
-      "requirements": [],
-      "use_cases": [
-        "UC-26"
-      ],
-      "kind": "automated"
-    },
-    "vfm/tests/table-fit.test.ts::tables that do not fit side by side go to separate slides rather than being dropped": {
-      "requirements": [],
-      "use_cases": [
-        "UC-26"
-      ],
-      "kind": "automated"
-    },
     "vfm-preview/tests/extension-polish.test.ts::the extension reaches vfm through the @vfm alias to the sibling folder": {
       "requirements": [
         "REQ-181"
@@ -397,15 +365,6 @@
       ],
       "kind": "automated"
     },
-    "vfm-preview/tests/fit.test.ts::on a 2col slide a table wider than its column does not fit; elsewhere it is left alone": {
-      "requirements": [
-        "REQ-244"
-      ],
-      "use_cases": [
-        "UC-26"
-      ],
-      "kind": "automated"
-    },
     "vfm/test/slides.test.ts::directive syntax errors are fatal and located": {
       "requirements": [
         "REQ-033"
@@ -433,20 +392,6 @@
       ],
       "kind": "automated"
     },
-    "vfm/test/slides.test.ts::steplists numbers list items in order; stepleadin follows the last item": {
-      "requirements": [],
-      "use_cases": [
-        "UC-02"
-      ],
-      "kind": "automated"
-    },
-    "vfm/test/slides.test.ts::step options with nothing to step are a no-op with a note": {
-      "requirements": [],
-      "use_cases": [
-        "UC-02"
-      ],
-      "kind": "automated"
-    },
     "vfm/test/slides.test.ts::@include expands recursively, detects cycles and maps lines to files": {
       "requirements": [
         "REQ-033"
@@ -462,20 +407,6 @@
       ],
       "use_cases": [
         "UC-11"
-      ],
-      "kind": "automated"
-    },
-    "vfm/test/slides.test.ts::the YAML header makes a title slide": {
-      "requirements": [],
-      "use_cases": [
-        "UC-02"
-      ],
-      "kind": "automated"
-    },
-    "vfm/test/slides.test.ts::a slide number is rendered when given": {
-      "requirements": [],
-      "use_cases": [
-        "UC-02"
       ],
       "kind": "automated"
     },
@@ -548,20 +479,6 @@
       ],
       "use_cases": [
         "UC-07"
-      ],
-      "kind": "automated"
-    },
-    "vfm/test/slides.test.ts::~text~ is underlined, ~~text~~ is still struck through, and stray tildes stay literal": {
-      "requirements": [],
-      "use_cases": [
-        "UC-01"
-      ],
-      "kind": "automated"
-    },
-    "vfm/test/slides.test.ts::underline works inside fenced divs, headings and list items": {
-      "requirements": [],
-      "use_cases": [
-        "UC-01"
       ],
       "kind": "automated"
     },
@@ -1005,7 +922,7 @@
     "manual/MT-04": {
       "requirements": [
         "REQ-017",
-        "REQ-018"
+        "REQ-033"
       ],
       "use_cases": [
         "UC-04",
@@ -1026,8 +943,7 @@
     },
     "manual/MT-06": {
       "requirements": [
-        "REQ-024",
-        "REQ-163"
+        "REQ-024"
       ],
       "use_cases": [
         "UC-07",
@@ -1135,16 +1051,6 @@
       "requirements": [],
       "use_cases": [
         "UC-13"
-      ],
-      "kind": "manual",
-      "status": "not run"
-    },
-    "manual/MT-20": {
-      "requirements": [
-        "REQ-244"
-      ],
-      "use_cases": [
-        "UC-26"
       ],
       "kind": "manual",
       "status": "not run"

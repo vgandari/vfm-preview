@@ -8,7 +8,7 @@ use cases, requirements and test cases is in `MAPPING.json`.
 **Actor.** The *author* writes Markdown in VS Code and watches the preview. The *audience* sees the slides or
 an exported file.
 
-Use cases that `vfm` also serves are repeated in `../vfm/docs/USE_CASES.md`.
+`../vfm/docs/USE_CASES.md` has the renderer's use cases. The same ID in both files is not expected to be the same use case.
 
 ## Existing behavior (inferred)
 
@@ -39,4 +39,3 @@ Use cases that `vfm` also serves are repeated in `../vfm/docs/USE_CASES.md`.
 | ID | Use case | Origin |
 | --- | --- | --- |
 | UC-24 | The author replaces the background of the title slide with an image. | request |
-| UC-26 | The author puts two tables side by side on one `2col` slide. | request |

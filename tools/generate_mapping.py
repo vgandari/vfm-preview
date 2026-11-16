@@ -17,7 +17,7 @@ TEST_FILES = [
     ("vfm", "tests/slide-colors.test.ts"),
     ("vfm", "tests/table-fit.test.ts"),
     ("vfm-preview", "tests/extension-polish.test.ts"),
-    ("vfm-preview", "tests/fit.test.ts"),
+    ("vfm", "tests/fit.test.ts"),
     ("vfm", "test/slides.test.ts"),
     ("vfm", "test/citations.test.ts"),
     ("vfm", "test/bibtex.test.ts"),
@@ -50,11 +50,11 @@ LEGACY = {
         (r"cross-reference unit|reference to a label in no|heading survives", ["REQ-020"], ["UC-05"]),
         (r"only referenced items|numberCaptions", ["REQ-019", "REQ-020"], ["UC-05"]),
         (r"layouts:|revert to one column", ["REQ-006"], ["UC-03"]),
-        (r"steplists|step options", ["REQ-013"], ["UC-02"]),
+        (r"steplists|step options", ["REQ-013"], ["UC-28"]),
         (r"table taller", ["REQ-012", "REQ-011"], ["UC-03"]),
         (r"code listing or theorem|at most one|floats take|second float|tables are floats|no header row|single sentence taller|continuation repeats|splitting is greedy|reduced paragraph stays|list continuation", ["REQ-011"], ["UC-03"]),
-        (r"YAML header makes a title slide", ["REQ-009", "REQ-111"], ["UC-02", "UC-14"]),
-        (r"slide number", ["REQ-010"], ["UC-02"]),
+        (r"YAML header makes a title slide", ["REQ-009", "REQ-111"], ["UC-28", "UC-14"]),
+        (r"slide number", ["REQ-010"], ["UC-28"]),
         (r"\bnotes?\b", ["REQ-030", "REQ-045"], ["UC-09"]),
         (r"algorithm, music and mermaid|old @@@|preprocessing keeps line", ["REQ-021"], ["UC-06"]),
         (r"document separator", ["REQ-008"], ["UC-03"]),
@@ -62,7 +62,7 @@ LEGACY = {
         (r"reducer|language defaults|paragraph ending in a colon|bold value", ["REQ-014"], ["UC-12"]),
         (r"block elements carry data-line", ["REQ-024", "REQ-043"], ["UC-07"]),
         (r"HTML comments never|raw HTML", ["REQ-022"], ["UC-03"]),
-        (r"underline|~text~", ["REQ-040"], ["UC-01"]),
+        (r"underline|~text~", ["REQ-040"], ["UC-29"]),
         (r"slide mode keeps only|blank-title|title is shared|several sections|\[title\] on the block|shared by several|adjacent dividers|title-only|same-level headings|only a run", ["REQ-005"], ["UC-03"]),
     ],
 }
@@ -72,9 +72,9 @@ MANUAL = {
     "MT-01": (["REQ-001"], ["UC-01"]),
     "MT-02": (["REQ-002"], ["UC-02"]),
     "MT-03": (["REQ-003"], ["UC-02"]),
-    "MT-04": (["REQ-017", "REQ-018"], ["UC-04", "UC-11"]),
+    "MT-04": (["REQ-017", "REQ-033"], ["UC-04", "UC-11"]),
     "MT-05": (["REQ-023"], ["UC-07"]),
-    "MT-06": (["REQ-024", "REQ-163"], ["UC-07", "UC-19"]),
+    "MT-06": (["REQ-024"], ["UC-07", "UC-19"]),
     "MT-07": (["REQ-025"], ["UC-07"]),
     "MT-08": (["REQ-026", "REQ-106", "REQ-147"], ["UC-08", "UC-13", "UC-17"]),
     "MT-09": (["REQ-027"], ["UC-08"]),
@@ -91,17 +91,19 @@ MANUAL = {
 }
 
 USE_CASES = {  # use case → requirements it needs; each repository keeps the ones it owns (see below)
-    "UC-01": ["REQ-001", "REQ-040"],
-    "UC-02": ["REQ-002", "REQ-003", "REQ-009", "REQ-010", "REQ-013"],
+    "UC-01": ["REQ-001"],
+    "UC-02": ["REQ-002", "REQ-003"],
     "UC-03": ["REQ-004", "REQ-005", "REQ-006", "REQ-007", "REQ-008", "REQ-011", "REQ-012", "REQ-022", "REQ-039"],
-    "UC-04": ["REQ-016", "REQ-017", "REQ-018", "REQ-034", "REQ-035", "REQ-036", "REQ-037", "REQ-041"],
+    "UC-04": ["REQ-016", "REQ-017", "REQ-033", "REQ-034", "REQ-035", "REQ-036", "REQ-037", "REQ-041"],
     "UC-05": ["REQ-019", "REQ-020"],
     "UC-06": ["REQ-021", "REQ-038"],
     "UC-07": ["REQ-023", "REQ-024", "REQ-025", "REQ-043"],
+    "UC-28": ["REQ-009", "REQ-010", "REQ-013"],
+    "UC-29": ["REQ-040"],
     "UC-08": ["REQ-026", "REQ-027", "REQ-028", "REQ-029"],
     "UC-09": ["REQ-030", "REQ-045"],
     "UC-10": ["REQ-031", "REQ-032", "REQ-042"],
-    "UC-11": ["REQ-018", "REQ-033", "REQ-041", "REQ-044"],
+    "UC-11": ["REQ-033", "REQ-041", "REQ-044"],
     "UC-12": ["REQ-014", "REQ-015"],
     "UC-13": ["REQ-101", "REQ-102", "REQ-103", "REQ-104", "REQ-105", "REQ-106", "REQ-107"],
     "UC-14": ["REQ-111", "REQ-112", "REQ-113", "REQ-114"],
@@ -109,7 +111,7 @@ USE_CASES = {  # use case → requirements it needs; each repository keeps the o
     "UC-16": ["REQ-131", "REQ-132", "REQ-133", "REQ-134", "REQ-135", "REQ-136"],
     "UC-17": ["REQ-141", "REQ-142", "REQ-143", "REQ-144", "REQ-145", "REQ-146", "REQ-147", "REQ-148"],
     "UC-18": ["REQ-151", "REQ-152"],
-    "UC-19": ["REQ-161", "REQ-162", "REQ-163"],
+    "UC-19": ["REQ-024", "REQ-161", "REQ-162"],
     "UC-20": ["REQ-171", "REQ-172", "REQ-173", "REQ-174"],
     "UC-21": ["REQ-181"],
     "UC-22": ["REQ-201", "REQ-202", "REQ-207", "REQ-208"],
@@ -131,12 +133,12 @@ def doc_ids(root: pathlib.Path, doc: str, kind: str) -> set[str]:
 def write_mapping(name: str, root: pathlib.Path, tests: dict, prefix: str) -> None:
     """Each repository owns the requirements in its docs/REQUIREMENTS.md and the use cases in its docs/USE_CASES.md.
     The mapping keeps the owned requirements only. vfm-preview also lists vfm tests, as evidence for its own
-    requirements; vfm lists only its own tests (keys relative to its root) and no manual ones."""
+    requirements; vfm lists its own tests (keys relative to its root) and the manual ones that name its ids."""
     reqs, ucs = doc_ids(root, "REQUIREMENTS.md", "REQ"), doc_ids(root, "USE_CASES.md", "UC")
     cases = {}
     for tid, t in tests.items():
-        if name == "vfm" and not tid.startswith("vfm/"):
-            continue
+        if name == "vfm" and not tid.startswith(("vfm/", "manual/")):
+            continue  # vfm lists its own tests, and the manual procedures (kept in vfm-preview/docs) that name its ids
         r, u = [x for x in t["requirements"] if x in reqs], [x for x in t["use_cases"] if x in ucs]
         if r or u:
             cases[tid[len(prefix):] if name == "vfm" else tid] = {**t, "requirements": r, "use_cases": u}
