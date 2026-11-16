@@ -95,9 +95,9 @@ HTML export embeds videos up to 50 MB. Word and PowerPoint get the caption and t
 ## Tables (REQ-151, REQ-152, REQ-231 to REQ-234)
 
 Table text is 0.9 times the size of the surrounding text in documents. On a slide it starts at 0.9 and, when the table
-does not fit, shrinks in steps of 0.05 down to 0.7 before anything else happens (a 30 px slide shows 27 px at 0.9 and
-21 px at 0.7). A table still too big at 0.7 continues on the next slide with its header repeated, the most rows that
-fit at 0.7 on each. Captions keep the surrounding size. A table is not dropped when the block ends with
+does not fit, shrinks in steps of 0.05 down to 0.6 before anything else happens (a 30 px slide shows 27 px at 0.9 and
+18 px at 0.6). A table still too big at 0.6 continues on the next slide with its header repeated, the most rows that
+fit at 0.6 on each. Captions keep the surrounding size. A table is not dropped when the block ends with
 `@end(lead-in)`: the lead-in goes under the last piece, and the table is shrunk or split to make room for it.
 `code` inside a table is 85 % of the table text.
 
@@ -118,7 +118,7 @@ out in one column as before.
 - **Can I put two videos side by side?** Yes: a `2col` block holding two videos and no text.
 - **How do I get a lighter background?** Give the color you want: `theme-color`, `section-color` and `title-image` are
   never tinted, so a lighter look is a lighter color.
-- **Why is a table so small?** On a slide a table shrinks (down to 0.7) until it fits. Shorten it or split it with a
+- **Why is a table so small?** On a slide a table shrinks (down to 0.6) until it fits. Shorten it or split it with a
   document separator if you want it larger. Inline `code` inside a table is 0.85 of the table text.
 - **Why did my table disappear?** That was a bug when the block ended with `@end(text)`; fixed (REQ-231).
 - **A dark `section-color`, but the text is dark?** The switch is by luminance, not hue: a saturated mid-tone such as

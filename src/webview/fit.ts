@@ -13,7 +13,7 @@ export const MIN_SHRINK = 0.5;
 
 /**
  * The floats that may be scaled down to fit: pictures, listings, theorem environments, algorithms, scores,
- * diagrams. Tables are not here on purpose: the splitter sizes a table's text (0.9 down to 0.7 of the text
+ * diagrams. Tables are not here on purpose: the splitter sizes a table's text (0.9 down to 0.6 of the text
  * around it, `slide.tableScale`, REQ-232) and divides it by rows (header repeated) when it is still too tall,
  * so a table is never scaled by a transform.
  */
