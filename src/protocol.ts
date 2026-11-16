@@ -27,6 +27,8 @@ export type HostMessage =
   | UpdateMessage
   /** The editor scrolled: its top visible line (1-based, in the main file). Document mode follows it. */
   | { type: "scroll"; line: number }
+  /** "Show cursor position in preview": the cursor's line (1-based, main file). Document mode scrolls to and flashes the block, slide mode shows its slide. */
+  | { type: "revealLine"; line: number }
   /** Build a file from the current text. `template` is the base64 of the file named in the YAML header. */
   | { type: "export"; format: ExportFormat; template?: string; text?: string };
 

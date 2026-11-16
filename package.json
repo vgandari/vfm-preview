@@ -63,6 +63,10 @@
       {
         "command": "vfmPreview.exportSlidesMarkdown",
         "title": "VFM: Export Slides as Markdown…"
+      },
+      {
+        "command": "vfmPreview.revealInPreview",
+        "title": "VFM: Show Cursor Position in Preview"
       }
     ],
     "menus": {
@@ -122,6 +126,17 @@
         {
           "command": "vfmPreview.openInBrowser",
           "when": "(editorLangId == markdown || activeWebviewPanelId == 'vfmPreview')"
+        },
+        {
+          "command": "vfmPreview.revealInPreview",
+          "when": "editorLangId == markdown"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "vfmPreview.revealInPreview",
+          "when": "editorLangId == markdown",
+          "group": "navigation"
         }
       ]
     },
@@ -137,6 +152,12 @@
         "key": "ctrl+k m",
         "mac": "cmd+k m",
         "when": "editorLangId == markdown || activeWebviewPanelId == 'vfmPreview'"
+      },
+      {
+        "command": "vfmPreview.revealInPreview",
+        "key": "ctrl+k j",
+        "mac": "cmd+k j",
+        "when": "editorLangId == markdown"
       }
     ],
     "configuration": {
