@@ -8,7 +8,7 @@ use cases, requirements and test cases is in `MAPPING.json`.
 **Actor.** The *author* writes Markdown in VS Code and watches the preview. The *audience* sees the slides or
 an exported file.
 
-`../vfm/docs/USE_CASES.md` has the renderer's use cases. The same ID in both files is not expected to be the same use case.
+`../vfm/docs/USE_CASES.md` has the renderer's use cases. Use case IDs are unique across the two files.
 
 ## Existing behavior (inferred)
 

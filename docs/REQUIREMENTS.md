@@ -5,7 +5,7 @@ the VS Code extension (`vfm-preview`), "vfm" is the renderer library in `../vfm`
 **I**nspection, **D**emonstration. Test cases are not written yet for the inferred requirements (see
 `MAPPING.json`); that is on purpose and is tracked as a gap, not as coverage.
 
-Requirements about the renderer, including the layout measurer, are in `../vfm/docs/REQUIREMENTS.md`. This file keeps those about the extension. The same ID in both repositories is not expected to denote the same item. Exports are editor-only: another host provides its own exporters.
+Requirements about the renderer, including the layout measurer, are in `../vfm/docs/REQUIREMENTS.md`. This file keeps those about the extension. IDs are unique across the two repositories. Exports are editor-only: another host provides its own exporters.
 
 ## A. Inferred from existing behavior
 
