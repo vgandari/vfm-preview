@@ -67,5 +67,8 @@ export function slideFits(root: ParentNode, twoColumns: boolean): boolean {
     if (!fitRegion(region)) ok = false;
     if (twoColumns && overflowsX(region)) ok = false;
   }
+  // A table scrolls inside its own box, so the region never sees it overflow. In a column that would clip it
+  // silently; counting it as not fitting makes the splitter shrink its text or move it to the next slide (REQ-244).
+  if (twoColumns) for (const table of root.querySelectorAll<HTMLElement>("table")) if (overflowsX(table)) ok = false;
   return ok;
 }

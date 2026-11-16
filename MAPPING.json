@@ -54,6 +54,9 @@
     "UC-21": [
       "REQ-181"
     ],
+    "UC-26": [
+      "REQ-244"
+    ],
     "UC-24": [
       "REQ-221",
       "REQ-222",
@@ -276,6 +279,34 @@
       ],
       "kind": "automated"
     },
+    "vfm/tests/table-fit.test.ts::two tables on a 2col slide with no text go side by side, one per column; a third starts a new slide": {
+      "requirements": [],
+      "use_cases": [
+        "UC-26"
+      ],
+      "kind": "automated"
+    },
+    "vfm/tests/table-fit.test.ts::a table and a picture, or the lone table, on a 2col slide behave as for pictures": {
+      "requirements": [],
+      "use_cases": [
+        "UC-26"
+      ],
+      "kind": "automated"
+    },
+    "vfm/tests/table-fit.test.ts::with text, or in another layout, a second table still goes to the next slide": {
+      "requirements": [],
+      "use_cases": [
+        "UC-26"
+      ],
+      "kind": "automated"
+    },
+    "vfm/tests/table-fit.test.ts::two tables that do not fit side by side go to separate slides rather than being dropped": {
+      "requirements": [],
+      "use_cases": [
+        "UC-26"
+      ],
+      "kind": "automated"
+    },
     "vfm-preview/tests/extension-polish.test.ts::the extension reaches vfm through the @vfm alias to the sibling folder": {
       "requirements": [
         "REQ-181"
@@ -363,6 +394,15 @@
       ],
       "use_cases": [
         "UC-15"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/fit.test.ts::on a 2col slide a table wider than its column does not fit; elsewhere it is left alone": {
+      "requirements": [
+        "REQ-244"
+      ],
+      "use_cases": [
+        "UC-26"
       ],
       "kind": "automated"
     },
@@ -1095,6 +1135,16 @@
       "requirements": [],
       "use_cases": [
         "UC-13"
+      ],
+      "kind": "manual",
+      "status": "not run"
+    },
+    "manual/MT-20": {
+      "requirements": [
+        "REQ-244"
+      ],
+      "use_cases": [
+        "UC-26"
       ],
       "kind": "manual",
       "status": "not run"

@@ -90,3 +90,4 @@ The renderer's requirements for `separator-color`, `section-color` and `title-im
 | REQ-221 | The preview shall resolve a local `title-image` path as it resolves a local image path, relative to the Markdown file, and shall allow the webview to load it. | D |
 | REQ-222 | The preview shall block a remote `title-image` unless `vfmPreview.allowRemoteImages` is on. | T |
 | REQ-223 | The HTML export shall embed a local `title-image` named in the YAML header in the file, and shall leave a remote or missing one as written. | T |
+| REQ-244 | In the slide measurer, the preview shall treat a `2col` slide as not fitting when a table in it is wider than its column, so that vfm shrinks the table text or moves the second table to the next slide instead of clipping it. | T |

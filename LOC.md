@@ -16,6 +16,9 @@
 | vfm-preview | table-fit | 9011681 | 18 | Tests for slide-colors, manual test MT-18 and mapping (WIP) |
 | vfm-preview | table-fit | 7b550ce | 20 | Implement separator-color, section-color with luminance-based text, title-image (WIP) |
 | vfm-preview | table-fit | c179559 | 2 | Tables at 0.8; title slide uses the plain theme color with luminance-based text (WIP) |
+| vfm-preview | table-fit | a6f4397 | 3 | Fix table dropped by @end() lead-in; table text 0.9 shrinking to 0.7 on slides; no tint on any color (WIP) |
+| vfm-preview | table-fit | 9751930 | 0 | Table text shrinks to 0.6 on slides (WIP) |
+| vfm-preview | table-fit | b992b23 | 1 | Scale table cell padding and line height with the table text (WIP) |
 | vfm | table-fit | 056bed2 | 9 | API: source lines on slides, theme color, diagnostics (WIP) |
 | vfm | table-fit | d784d32 | 0 | Docs: slide-polish pointer |
 | vfm | table-fit | 470d550 | 0 | Tests deferred until development is complete (WIP) |
@@ -31,5 +34,9 @@
 | vfm | table-fit | 61b1e3d | 160 | Tests for slide-colors, manual test MT-18 and mapping (WIP) |
 | vfm | table-fit | 20a378c | 153 | Implement separator-color, section-color with luminance-based text, title-image (WIP) |
 | vfm | table-fit | 70d864e | 31 | Tables at 0.8; title slide uses the plain theme color with luminance-based text (WIP) |
+| vfm | table-fit | 3ac643b | 170 | Fix table dropped by @end() lead-in; table text 0.9 shrinking to 0.7 on slides; no tint on any color (WIP) |
+| vfm | table-fit | ee8337d | 10 | Table text shrinks to 0.6 on slides (WIP) |
+| vfm | table-fit | 3186f18 | 14 | Fix table resizing on slides: slide rule out-ranks .markdownBody table (WIP) |
+| vfm | table-fit | af1bfe9 | 17 | Scale table cell padding and line height with the table text (WIP) |
 
-Total since `main`: 1565
+Total since `main`: 1780

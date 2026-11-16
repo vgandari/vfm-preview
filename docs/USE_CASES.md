@@ -39,3 +39,4 @@ Use cases that `vfm` also serves are repeated in `../vfm/docs/USE_CASES.md`.
 | ID | Use case | Origin |
 | --- | --- | --- |
 | UC-24 | The author replaces the background of the title slide with an image. | request |
+| UC-26 | The author puts two tables side by side on one `2col` slide. | request |
