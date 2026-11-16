@@ -28,7 +28,7 @@ before(async () => {
     outfile: out,
     logLevel: "silent",
     jsx: "automatic",
-    alias: { "@vfm": resolve(root, "../vfm") },
+    alias: { "@vfm": resolve(root, "node_modules/vfm") },
     nodePaths: [join(root, "node_modules")],
     external: ["mermaid"],
     loader: { ".module.css": "local-css", ".css": "empty" },
@@ -48,12 +48,12 @@ const state = (text: string) => ({
 const unzip = async (b64: string, file: string) => (await JSZip.loadAsync(b64, { base64: true })).file(file)!.async("string");
 
 // Verifies REQ-181 (UC-21)
-test("the extension reaches vfm through the @vfm alias to the sibling folder", () => {
+test("the extension reaches vfm through the @vfm alias to the vfm npm dependency", () => {
   const ts = JSON.parse(readFileSync(join(root, "tsconfig.json"), "utf8"));
-  assert.deepEqual(ts.compilerOptions.paths["@vfm/*"], ["../vfm/*"]);
+  assert.deepEqual(ts.compilerOptions.paths["@vfm/*"], ["node_modules/vfm/*"]);
   const esb = readFileSync(join(root, "esbuild.mjs"), "utf8");
   assert.match(esb, /alias: \{ "@vfm": vfmDir \}/);
-  assert.match(esb, /path\.resolve\(process\.env\.VFM_DIR \?\? "\.\.\/vfm"\)/);
+  assert.match(esb, /path\.resolve\(process\.env\.VFM_DIR \?\? "node_modules\/vfm"\)/);
   for (const f of ["src/bibliography.ts", "src/export.ts", "src/protocol.ts", "src/extension.ts", "src/webview/main.tsx", "src/webview/Slides.tsx"]) {
     const src = readFileSync(join(root, f), "utf8");
     assert.doesNotMatch(src, /from "(\.\.\/)+vfm\//, `${f} still imports vfm by relative path`);

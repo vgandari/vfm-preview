@@ -13,11 +13,10 @@
     "types": ["node"],
     "baseUrl": ".",
     "paths": {
-      "@vfm": ["../vfm/index.tsx"],
-      "@vfm/*": ["../vfm/*"],
+      "@vfm": ["node_modules/vfm/index.tsx"],
+      "@vfm/*": ["node_modules/vfm/*"],
       "*": ["node_modules/@types/*", "node_modules/*"]
     }
   },
-  "include": ["src", "../vfm/**/*.ts", "../vfm/**/*.tsx"],
-  "exclude": ["../vfm/test", "../vfm/node_modules"]
+  "include": ["src"]
 }

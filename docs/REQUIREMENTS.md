@@ -72,7 +72,7 @@ Requirements about the renderer, including the layout measurer, are in `../vfm/d
 
 | ID | Requirement | Method |
 | --- | --- | --- |
-| REQ-181 | The preview shall import vfm through the alias `@vfm`, which resolves to the sibling directory `../vfm` of the project root, so that every `vfm-preview-<feature>` working copy builds against the same library. | I |
+| REQ-181 | The preview shall import vfm through the alias `@vfm`, which resolves to the `vfm` npm dependency (`github:vgandari/vfm`) installed in `node_modules/vfm`, so that the library version is pinned by the lockfile. | I |
 
 ## C. New in `slide-colors`
 

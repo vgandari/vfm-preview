@@ -2,8 +2,8 @@ import * as esbuild from "esbuild";
 import * as fs from "node:fs";
 import * as path from "node:path";
 
-// vfm is a sibling project (../vfm), shared by every <project>-<feature> working copy.
-const vfmDir = path.resolve(process.env.VFM_DIR ?? "../vfm");
+// vfm is an npm dependency (github:vgandari/vfm). Set VFM_DIR to build against a local checkout instead.
+const vfmDir = path.resolve(process.env.VFM_DIR ?? "node_modules/vfm");
 
 
 const watch = process.argv.includes("--watch");
@@ -13,7 +13,7 @@ const common = {
   sourcemap: watch,
   logLevel: "info",
   alias: { "@vfm": vfmDir },
-  nodePaths: [path.resolve("node_modules")], // vfm has no node_modules of its own
+  nodePaths: [path.resolve("node_modules")], // vfm may be a symlink/checkout without its own node_modules
 };
 
 const extension = {

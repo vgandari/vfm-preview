@@ -1,12 +1,12 @@
 # VFM Preview
 
-VS Code extension that previews Markdown files with the vfm renderer (in `vfm/`).
+VS Code extension that previews Markdown files with the vfm renderer (the `vfm` library, `github:vgandari/vfm`).
 
 - `npm install && npm run build`, then press F5 to launch an Extension Development Host.
 - Open a `.md` file and run **VFM: Open Preview to the Side** (⌘K V, or the editor title button).
 - `npm run watch` rebuilds on change; `npm run package` produces a `.vsix`.
 
-The vfm folder is bundled as-is; its dependencies are installed from this package's `package.json`.
+The vfm library is bundled as-is; its dependencies are installed from this package's `package.json`.
 
 ## Slide mode
 
@@ -63,8 +63,9 @@ title rule; the title slide lists affiliations; captions accept `$math$`; `H_{2}
 a video file (`.mov`, `.mp4`, …) written with the image syntax embeds as a video (see `docs/slide-polish.md`); table text is a little smaller.
 Double-clicking a slide title or lead-in jumps to its line in the file.
 
-The extension imports the renderer from the sibling folder `../vfm` through the alias `@vfm`
-(`tsconfig.json` and `esbuild.mjs`; set `VFM_DIR` to build against another checkout).
+The extension imports the renderer through the alias `@vfm`, which resolves to the `vfm` npm
+dependency (`github:vgandari/vfm`, pinned by `package-lock.json`) in `node_modules/vfm`
+(`tsconfig.json` and `esbuild.mjs`). See [Developing against a local vfm](#developing-against-a-local-vfm).
 
 ## Diagrams, algorithms, scores
 
@@ -102,3 +103,33 @@ Notes button) for a notes panel under the slide. In an exported HTML page or **O
 the Presenter button) opens a presenter window: the current slide, the next slide, large notes and a
 timer, kept in step with the audience window, so the audience window can go fullscreen. Notes never show in
 document mode, HTML slides' audience view or the PDF.
+
+## Developing against a local vfm
+
+To try a change in a local vfm checkout (assumed here to be the sibling folder `../vfm`) without
+pushing it to GitHub first, replace the installed copy with a symlink:
+
+```sh
+rm -rf node_modules/vfm && ln -s ../../vfm node_modules/vfm
+npm run watch        # rebuilds on every change in ../vfm or src/
+npm run typecheck    # tsc follows the symlink, so vfm is checked too
+```
+
+`package.json` and `package-lock.json` are untouched, so nothing here can be committed by mistake.
+(`npm install ../vfm` does not work: npm links it as `node_modules/markdown`, vfm's internal
+package name, and `@vfm` keeps pointing at the GitHub copy.)
+
+Once the change is pushed to vfm's `main`, go back to the pinned copy:
+
+```sh
+rm node_modules/vfm && npm update vfm     # re-resolves github:vgandari/vfm to its latest commit
+```
+
+Plain `npm install` also restores the copy recorded in the lockfile, but it does not fetch newer
+vfm commits. A vfm file that `vfm/package.json`'s `files` list omits is missing from the GitHub copy
+(but not from the symlink), so a build that passes locally can fail after switching back; run
+`npm run typecheck` after switching back.
+
+To build against a checkout somewhere else without a symlink, set `VFM_DIR` for `esbuild.mjs`
+(`VFM_DIR=/path/to/vfm npm run build`); `tsconfig.json` still reads `node_modules/vfm`, so
+`npm run typecheck` checks the pinned copy.
