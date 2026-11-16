@@ -17,7 +17,11 @@ TEST_FILES = [
     ("vfm", "tests/slide-colors.test.ts"),
     ("vfm", "tests/table-fit.test.ts"),
     ("vfm-preview", "tests/extension-polish.test.ts"),
+    ("vfm-preview", "tests/editor-sync.test.ts"),
     ("vfm", "tests/fit.test.ts"),
+    ("vfm", "tests/conformance.test.ts"),
+    ("vfm", "tests/features.test.ts"),
+    ("vfm", "tests/tutorial.test.ts"),
     ("vfm", "test/slides.test.ts"),
     ("vfm", "test/citations.test.ts"),
     ("vfm", "test/bibtex.test.ts"),
@@ -88,6 +92,8 @@ MANUAL = {
     "MT-20": (["REQ-244", "REQ-241", "REQ-243"], ["UC-26"]),
     "MT-17": (["REQ-151", "REQ-152", "REQ-232"], ["UC-18", "UC-25"]),
     "MT-18": (["REQ-221", "REQ-222", "REQ-211", "REQ-213"], ["UC-24"]),
+    "MT-21": (["REQ-251", "REQ-252"], ["UC-41"]),
+    "MT-22": (["REQ-253", "REQ-254"], ["UC-42"]),
 }
 
 USE_CASES = {  # use case → requirements it needs; each repository keeps the ones it owns (see below)
@@ -130,6 +136,12 @@ USE_CASES = {  # use case → requirements it needs; each repository keeps the o
     "UC-27": ["REQ-245"],
     "UC-25": ["REQ-231", "REQ-232", "REQ-233", "REQ-234", "REQ-235"],
     "UC-24": ["REQ-221", "REQ-222", "REQ-223"],
+    "UC-43": ["REQ-317"],
+    "UC-44": ["REQ-301", "REQ-302", "REQ-303", "REQ-304", "REQ-305", "REQ-306", "REQ-307"],
+    "UC-45": ["REQ-308", "REQ-309", "REQ-310", "REQ-311", "REQ-313", "REQ-314", "REQ-315", "REQ-316"],
+    "UC-46": ["REQ-312"],
+    "UC-41": ["REQ-251", "REQ-252"],
+    "UC-42": ["REQ-253", "REQ-254"],
     "UC-40": ["REQ-211", "REQ-212", "REQ-213", "REQ-214", "REQ-215"],
 }
 

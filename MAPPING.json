@@ -57,6 +57,14 @@
       "REQ-221",
       "REQ-222",
       "REQ-223"
+    ],
+    "UC-41": [
+      "REQ-251",
+      "REQ-252"
+    ],
+    "UC-42": [
+      "REQ-253",
+      "REQ-254"
     ]
   },
   "test_cases": {
@@ -67,7 +75,7 @@
       "use_cases": [],
       "kind": "automated"
     },
-    "vfm-preview/tests/extension-polish.test.ts::the extension reaches vfm through the @vfm alias to the sibling folder": {
+    "vfm-preview/tests/extension-polish.test.ts::the extension reaches vfm through the @vfm alias to the vfm npm dependency": {
       "requirements": [
         "REQ-181"
       ],
@@ -154,6 +162,60 @@
       ],
       "use_cases": [
         "UC-15"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/editor-sync.test.ts::a line inside an @slide block lands on that slide": {
+      "requirements": [
+        "REQ-254"
+      ],
+      "use_cases": [
+        "UC-42"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/editor-sync.test.ts::a line between blocks lands on the slide above; one before the first block, on the first slide": {
+      "requirements": [
+        "REQ-254"
+      ],
+      "use_cases": [
+        "UC-42"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/editor-sync.test.ts::a long slide split into continuations: the line lands on the continuation that shows it": {
+      "requirements": [
+        "REQ-254"
+      ],
+      "use_cases": [
+        "UC-42"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/editor-sync.test.ts::an empty deck yields slide 0 and a deck of one slide always yields it": {
+      "requirements": [
+        "REQ-254"
+      ],
+      "use_cases": [
+        "UC-42"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/editor-sync.test.ts::the thumbnail's number is rendered after, and outside, the thumbnail button, centered": {
+      "requirements": [
+        "REQ-251"
+      ],
+      "use_cases": [
+        "UC-41"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/editor-sync.test.ts::a separator lies under each number except the last": {
+      "requirements": [
+        "REQ-252"
+      ],
+      "use_cases": [
+        "UC-41"
       ],
       "kind": "automated"
     },
@@ -435,6 +497,28 @@
       ],
       "use_cases": [
         "UC-24"
+      ],
+      "kind": "manual",
+      "status": "not run"
+    },
+    "manual/MT-21": {
+      "requirements": [
+        "REQ-251",
+        "REQ-252"
+      ],
+      "use_cases": [
+        "UC-41"
+      ],
+      "kind": "manual",
+      "status": "not run"
+    },
+    "manual/MT-22": {
+      "requirements": [
+        "REQ-253",
+        "REQ-254"
+      ],
+      "use_cases": [
+        "UC-42"
       ],
       "kind": "manual",
       "status": "not run"
