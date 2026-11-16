@@ -56,6 +56,16 @@ not in the file shows as a red "unknown citation" marker. Citations work in docu
 - Rendered blocks carry `data-line`, the line of your file they came from; this is exact for fenced divs,
   `alg` / `mus` / `mermaid` blocks, YAML headers and included files.
 
+## Theme, affiliations, math captions, sub/superscripts, video
+
+See `docs/slide-polish.md`: `theme-color:` in the YAML header tints the title and section slides and colors the
+title rule; the title slide lists affiliations; captions accept `$math$`; `H_{2}O` and `x^{2}` work outside math;
+`![Caption](clip.mov)` embeds a video with the image syntax; table text is a little smaller.
+Double-clicking a slide title or lead-in jumps to its line in the file.
+
+The extension imports the renderer from the sibling folder `../vfm` through the alias `@vfm`
+(`tsconfig.json` and `esbuild.mjs`; set `VFM_DIR` to build against another checkout).
+
 ## Diagrams, algorithms, scores
 
 Fenced code with a reserved language: `` ```alg Caption {#alg:name} `` (pseudocode.js),

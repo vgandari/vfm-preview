@@ -123,6 +123,7 @@ First, `@include` runs as a textual substitution on raw source, recursively, wit
 | `rtext` / `ltext`, with images | text on one side, image region on the other |
 | `2col`, slide without an image | two columns, balanced at block boundaries |
 | `2col`, slide with an image | single column for that slide |
+| `2col`, two or more images and no text | one image per column |
 | Image-only slide | one image per slide |
 
 ### Images
