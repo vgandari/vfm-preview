@@ -1,0 +1,107 @@
+:root {
+  --font-global-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --font-global-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+}
+
+/*
+ * One canvas color, painted on html, body and the page wrapper. VS Code injects its own
+ * body rules (transparent background, 0 20px padding), so these are deliberately more
+ * specific and !important rather than relying on source order.
+ */
+:root { --vfm-canvas: #ffffff; }
+:root[data-theme="dark"] { --vfm-canvas: #0d1117; }
+:root[data-vfm-theme="vscode"] { --vfm-canvas: var(--vscode-editor-background); }
+
+html, html body, html body .vfm-page { background-color: var(--vfm-canvas) !important; }
+html body { min-height: 100vh; }
+
+html body { margin: 0 !important; padding: 0 !important; }
+
+.vfm-page { margin: 0 auto; padding: 24px 32px 64px; box-sizing: border-box; }
+
+/* Frontmatter lives inside .vfm-body, so it takes vfm's color tokens and fonts. */
+.vfm-frontmatter { margin-bottom: 2em; }
+.vfm-frontmatter h1 { margin: 0 0 .2em; text-align: center; }
+.vfm-subtitle { font-size: 1.2em; color: var(--color-fg-muted); text-align: center; margin: 0; }
+.vfm-authors { text-align: center; margin-top: 1em; }
+.vfm-authors p { margin: 0 0 .4em; }
+.vfm-affiliations { list-style-position: inside; padding: 0; margin: 0 0 .4em; font-size: .9em; color: var(--color-fg-muted); }
+.vfm-author-contact { font-size: .85em; color: var(--color-fg-muted); }
+.vfm-author-contact span { display: block; }
+.vfm-date { text-align: center; color: var(--color-fg-muted); margin: .4em 0 0; }
+.vfm-abstract { margin: 1.5em var(--float-margin, 2.5ch) 0; }
+.vfm-frontmatter.vfm-frontmatter .vfm-abstract > h2 { font-size: 1em; text-align: center; border: 0; margin: 0 0 .4em; padding: 0; }
+/* vfm styles dt/dd itself (italic, block, margins); reset that and lay the fields out as a grid. */
+.vfm-frontmatter.vfm-frontmatter dl { display: grid; grid-template-columns: max-content 1fr; gap: .25em 1.5ch; margin: 1em 0 0; padding: 0; font-size: .9em; }
+.vfm-frontmatter.vfm-frontmatter dl > div { display: contents; }
+.vfm-frontmatter.vfm-frontmatter dt { margin: 0; padding: 0; font-style: normal; font-weight: 600; color: var(--color-fg-muted); }
+.vfm-frontmatter.vfm-frontmatter dt::after { content: ":"; }
+.vfm-frontmatter.vfm-frontmatter dd { margin: 0; padding: 0; }
+.vfm-frontmatter.vfm-frontmatter dl.vfm-fm-nested { margin: 0; font-size: 1em; }
+.vfm-frontmatter ul { margin: 0; padding-left: 1.2em; }
+/* No rules between header parts: drop vfm's underline on the title. */
+.vfm-frontmatter.vfm-frontmatter h1 { border-bottom: 0; padding-bottom: 0; }
+.vfm-fm-table { margin-top: 1.5em; }
+.vfm-frontmatter .vfm-fm-table tr > th { text-align: left; font-weight: 700; }
+.vfm-error { color: #cf222e; white-space: pre-wrap; }
+
+/* ─── "vscode" theme: map vfm's color tokens onto the active VS Code theme ─── */
+
+/* Doubled class beats vfm's [data-theme="dark"] selectors regardless of load order. */
+:root[data-vfm-theme="vscode"] .vfm-body.vfm-body {
+  --color-fg-default: var(--vscode-editor-foreground);
+  --color-fg-muted: var(--vscode-descriptionForeground, var(--vscode-editor-foreground));
+  --color-fg-subtle: var(--vscode-disabledForeground, var(--vscode-descriptionForeground));
+  --color-canvas-default: var(--vscode-editor-background);
+  --color-canvas-subtle: var(--vscode-textCodeBlock-background, var(--vscode-editorWidget-background));
+  --color-border-default: var(--vscode-editorWidget-border, var(--vscode-panel-border, currentColor));
+  --color-border-muted: var(--vscode-panel-border, var(--vscode-editorWidget-border, currentColor));
+  --color-accent-fg: var(--vscode-textLink-foreground);
+  --color-accent-emphasis: var(--vscode-textLink-activeForeground, var(--vscode-textLink-foreground));
+  --color-neutral-muted: color-mix(in srgb, var(--vscode-editor-foreground) 15%, transparent);
+  --color-success-fg: var(--vscode-testing-iconPassed, var(--vscode-terminal-ansiGreen));
+  --color-success-subtle: color-mix(in srgb, var(--color-success-fg) 15%, transparent);
+  --color-attention-fg: var(--vscode-editorWarning-foreground, var(--vscode-terminal-ansiYellow));
+  --color-attention-subtle: color-mix(in srgb, var(--color-attention-fg) 15%, transparent);
+  --color-severe-fg: var(--vscode-editorWarning-foreground, var(--vscode-terminal-ansiYellow));
+  --color-severe-subtle: color-mix(in srgb, var(--color-severe-fg) 15%, transparent);
+  --color-danger-fg: var(--vscode-errorForeground);
+  --color-danger-subtle: color-mix(in srgb, var(--color-danger-fg) 15%, transparent);
+  --color-done-fg: var(--vscode-terminal-ansiMagenta, var(--vscode-textLink-foreground));
+  --color-done-subtle: color-mix(in srgb, var(--color-done-fg) 15%, transparent);
+  --color-rule: var(--vscode-editor-foreground);
+  --font-body: var(--vscode-font-family, var(--font-global-sans));
+  --font-mono: var(--vscode-editor-font-family, var(--font-global-mono));
+}
+
+/*
+ * vfm paints both <pre> and the inline <code> inside it with --color-canvas-subtle (the
+ * .hljs rule outranks `pre code { background: transparent }`). That is invisible while the
+ * color is opaque, but VS Code's code-block color is often translucent, so the two layers
+ * stack into per-line stripes. Let the <pre> be the only layer.
+ */
+:root[data-vfm-theme="vscode"] .vfm-body pre code {
+  background: transparent !important;
+}
+
+/* Task checkboxes are live in the preview: clicking one edits the file. */
+.vfm-body input[type="checkbox"] {
+  pointer-events: auto !important;
+  cursor: pointer;
+}
+
+/* Play button under a score (not printed, not in PDF). */
+.vfm-body .music-play {
+  font: inherit;
+  font-size: 0.8em;
+  padding: 2px 10px;
+  margin-top: 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid var(--color-border-default, currentColor);
+  background: var(--color-canvas-subtle, transparent);
+  color: inherit;
+}
+@media print {
+  .music-play { display: none; }
+}

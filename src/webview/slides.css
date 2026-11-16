@@ -1,0 +1,184 @@
+/* Slideshow */
+.vfm-slides {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--vscode-editor-background, #1e1e1e);
+}
+.vfm-slides-frame {
+  flex: 1 1 0;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 44px 16px 8px;
+}
+.vfm-stage-box {
+  flex: none;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+}
+.vfm-stage-wrap {
+  --vfm-slide-bg: var(--color-canvas-default);
+  --vfm-slide-fg: var(--color-fg-default);
+  --vfm-slide-muted: var(--color-fg-muted);
+  --vfm-slide-accent: var(--color-accent-fg);
+}
+.vfm-slides-bar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 6px 12px 10px;
+  font: 12px var(--vscode-font-family, sans-serif);
+  color: var(--vscode-foreground, #ccc);
+}
+.vfm-slides-bar button {
+  all: unset;
+  cursor: pointer;
+  padding: 2px 12px;
+  font-size: 16px;
+  border-radius: 4px;
+  background: var(--vscode-button-secondaryBackground, #3a3d41);
+  color: var(--vscode-button-secondaryForeground, #fff);
+}
+.vfm-slides-bar button:disabled { opacity: 0.35; cursor: default; }
+.vfm-slides-bar .vfm-slides-problems {
+  font-size: 12px;
+  background: var(--vscode-inputValidation-warningBackground, #5a4a00);
+}
+.vfm-slides-status {
+  padding: 48px 32px;
+  font: 14px var(--vscode-font-family, sans-serif);
+  color: var(--vscode-descriptionForeground, #999);
+}
+
+/* Problems */
+.vfm-problems { font: 13px var(--vscode-font-family, sans-serif); color: var(--vscode-foreground, #ccc); }
+.vfm-problems h3 { margin: 0 0 6px; font-size: 13px; }
+.vfm-problems ul { margin: 0; padding-left: 18px; }
+.vfm-problem-error { color: var(--vscode-errorForeground, #f48771); }
+.vfm-problem-warning { color: var(--vscode-editorWarning-foreground, #cca700); }
+.vfm-problem-where, .vfm-problem-code { opacity: 0.7; font-family: var(--vscode-editor-font-family, monospace); font-size: 12px; }
+.vfm-slides-problem-panel {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 44px;
+  max-height: 40vh;
+  overflow: auto;
+  padding: 10px 14px;
+  background: var(--vscode-editorWidget-background, #252526);
+  border: 1px solid var(--vscode-editorWidget-border, #454545);
+  border-radius: 6px;
+}
+
+/* Fullscreen: the bar fades out until hovered. */
+/* The bar floats over the slide instead of taking room from it, so the slide can use the whole screen. */
+.vfm-slides.vfm-fullscreen .vfm-slides-bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.vfm-slides.vfm-fullscreen .vfm-slides-bar:hover { opacity: 1; }
+.vfm-slides.vfm-fullscreen .vfm-slides-frame { padding: 0; }
+.vfm-slides.vfm-fullscreen .vfm-stage-box { box-shadow: none; border-radius: 0; }
+
+/* PDF export: one slide per page, backgrounds kept. */
+.vfm-print { background: #fff; }
+.vfm-print-page { break-after: page; overflow: hidden; }
+@media print {
+  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+.vfm-print-page:last-child { break-after: auto; }
+
+/* Layout: the stage column, with notes below it, and in the presenter window a side column. */
+.vfm-slides-body { flex: 1 1 0; min-height: 0; display: flex; }
+.vfm-slides-stagecol { flex: 1 1 0; min-width: 0; min-height: 0; display: flex; flex-direction: column; }
+
+/* Presenter notes under the slide */
+.vfm-notes-panel {
+  flex: none;
+  max-height: 28vh;
+  overflow: auto;
+  margin: 0 16px 6px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.45;
+  background: var(--color-canvas-subtle, #f6f8fa);
+  color: var(--color-fg-default, #1f2328);
+}
+.vfm-notes-panel .vfm-note > :last-child { margin-bottom: 0; }
+.vfm-notes-empty { margin: 0; color: var(--color-fg-muted, #656d76); font-style: italic; }
+.vfm-slides-bar button.vfm-on { background: var(--vscode-button-background, #0969da); color: var(--vscode-button-foreground, #fff); }
+
+/* Presenter window: current slide left; next slide, notes and timer right. */
+.vfm-presenter-side {
+  flex: none;
+  width: 34%;
+  max-width: 460px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 44px 16px 8px 0;
+  min-height: 0;
+}
+.vfm-presenter-label { font: 11px var(--vscode-font-family, sans-serif); text-transform: uppercase; letter-spacing: 0.06em; opacity: 0.6; color: var(--vscode-foreground, #ccc); margin-bottom: 4px; }
+.vfm-mini { position: relative; overflow: hidden; border-radius: 4px; box-shadow: 0 1px 8px rgba(0,0,0,.4); }
+.vfm-mini-end { display: flex; align-items: center; justify-content: center; background: #2a2a2a; color: #aaa; font: 14px sans-serif; }
+.vfm-presenter-notes { flex: 1 1 0; min-height: 0; display: flex; flex-direction: column; }
+.vfm-presenter-notes .vfm-notes-panel { flex: 1 1 0; max-height: none; margin: 0; font-size: 20px; }
+.vfm-presenter-timer { all: unset; cursor: pointer; align-self: flex-start; font: 600 28px ui-monospace, Menlo, monospace; color: var(--vscode-foreground, #ccc); }
+.vfm-notes-panel .vfm-note { margin-bottom: 0.6em; }
+.vfm-notes-panel .vfm-note:last-child { margin-bottom: 0; }
+
+/* Thumbnail sidebar (collapsible with the "Slides" button or T) */
+.vfm-thumbs {
+  flex: none;
+  width: 188px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  padding: 44px 8px 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-right: 1px solid var(--vscode-panel-border, rgba(128, 128, 128, 0.3));
+}
+.vfm-thumb {
+  all: unset;
+  flex: none;
+  position: relative;
+  display: block;
+  cursor: pointer;
+  border-radius: 4px;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.vfm-thumb:hover { outline-color: var(--vscode-focusBorder, #3794ff); opacity: 0.9; }
+.vfm-thumb:focus-visible { outline-color: var(--vscode-focusBorder, #3794ff); }
+.vfm-thumb.vfm-current { outline-color: var(--vscode-focusBorder, #3794ff); outline-width: 3px; }
+.vfm-thumb .vfm-mini { pointer-events: none; background: var(--color-canvas-default, #fff); }
+.vfm-thumb-number {
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  z-index: 2;
+  padding: 0 5px;
+  border-radius: 3px;
+  font: 600 10px var(--vscode-font-family, sans-serif);
+  background: var(--vscode-badge-background, #4d4d4d);
+  color: var(--vscode-badge-foreground, #fff);
+}
+@media (max-width: 520px) {
+  .vfm-thumbs { display: none; }
+}
+@media print {
+  .vfm-thumbs { display: none; }
+}
