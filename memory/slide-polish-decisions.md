@@ -20,4 +20,4 @@ Tables (2026-11-15, supersedes 0.8): documents 0.9; slides 0.9 shrinking by 0.05
 No color option is tinted: theme-color fills title and section slides exactly; section-color overrides section slides; text light/dark by luminance 0.179.
 Branch `table-fit` (both repos) off slide-colors-impl; chain not merged back (coverage not measured).
 Coverage (2026-11-15, node V8 + source maps): vfm bundled-mapped lines 70.9% -> 71.4%, direct-import 96.01% -> 96.13%; extension 43.26% -> 56.73%. Not decreased, so merging the chain is allowed by the rules (not done: not asked).
-Open: `.vfm-slide h2/h3/h4` and `pre` size rules tie with `.markdownBody` and lose (doc sheet is later): slide subheadings render 1.5em/1.25em, code 85%, not the intended 1.15/1.05/0.75. Fixing changes how existing slides look; waiting for user.
+Decided (user, 2026-11-15): keep the actual look. Slide h2/h3/h4, p, ul/ol/li and pre rules lose to .markdownBody (tie, later wins); not deleted because a host without .markdownBody uses them. Documented in slides.css, vfm README and slide-polish.md.
