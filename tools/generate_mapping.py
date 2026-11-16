@@ -22,6 +22,7 @@ TEST_FILES = [
     ("vfm", "tests/conformance.test.ts"),
     ("vfm", "tests/features.test.ts"),
     ("vfm", "tests/tutorial.test.ts"),
+    ("vfm", "tests/direct.test.ts"),
     ("vfm", "test/slides.test.ts"),
     ("vfm", "test/citations.test.ts"),
     ("vfm", "test/bibtex.test.ts"),
