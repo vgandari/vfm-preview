@@ -73,8 +73,8 @@ the VS Code extension (`vfm-preview`), "vfm" is the renderer library in `../vfm`
 | ID | Requirement | Method |
 | --- | --- | --- |
 | REQ-111 | The title slide shall list, for each author, the affiliation named in the YAML header, as department, institution and place. | T |
-| REQ-112 | When two or more distinct affiliations exist, the title slide shall number them in order of first appearance and mark each author with the numbers of that author's affiliations. | T |
-| REQ-113 | When all authors share exactly one affiliation, the title slide shall show it once, without numbers. | T |
+| REQ-112 | The title slide shall number the affiliations in order of first appearance and mark each author with the numbers of that author's affiliations. | T |
+| REQ-113 | vfm shall take the name of an affiliation from `name`, `institution`, `organization` or `department`, in that order. | T |
 | REQ-114 | When the header defines top-level `affiliations` and no author refers to any, the title slide shall list all of them once, without numbers. | T |
 
 ### Math in captions (UC-15)
@@ -130,7 +130,7 @@ the VS Code extension (`vfm-preview`), "vfm" is the renderer library in `../vfm`
 | --- | --- | --- |
 | REQ-171 | The slide shall scale every image or video down to fit the height and width of its region, preserving its aspect ratio and not enlarging it past its own size. | D |
 | REQ-172 | On a `2col` slide that has images and no text, vfm shall give each image its own column, up to two. | T |
-| REQ-173 | On a `2col` slide that has text and images, vfm shall put the text in the first column and the images in the second. | T |
+| REQ-173 | On a `2col` slide that has text, or only one image, vfm shall lay the slide out in one column in source order, as before. | T |
 | REQ-174 | When a `2col` block has more images than fit, vfm shall continue on a new slide. | T |
 
 ### Project layout

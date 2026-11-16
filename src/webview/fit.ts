@@ -31,6 +31,8 @@ const FLOAT_SELECTOR = [
   ".blockquote",
   ".equation-wrapper",
   "p:has(> img)",
+  "p:has(> video)",
+  "video",
 ].join(", ");
 
 const overflowsY = (el: HTMLElement) => el.scrollHeight > el.clientHeight + 1;

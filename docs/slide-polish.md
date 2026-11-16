@@ -28,9 +28,10 @@ author:
     affiliation: Analytical Engines Ltd., London, UK
 ```
 
-Both authors share one affiliation, so it is shown once under the names. With several affiliations each
-author gets numbers (`Ada Lovelace¹ ², Charles Babbage²`) and the numbered list follows. A top-level
-`affiliations:` list that no author refers to is shown as it is.
+The title slide lists the affiliations in order of first appearance, numbered, and marks each author with the
+numbers that apply (here `Ada Lovelace¹, Charles Babbage¹` and one numbered affiliation). An affiliation may be given as `name`, `institution`,
+`organization` or `department`. A top-level `affiliations:` list that no author refers to is shown as it is,
+without numbers. Exporting to PowerPoint puts the affiliations under the author names on the title slide.
 
 ## Math in captions (REQ-121 to REQ-123)
 
@@ -78,7 +79,8 @@ double-click a lead-in to go to its `@end(...)` line.
 ## Images on slides (REQ-171 to REQ-174)
 
 Images are scaled to fit their region. On a `2col` slide with no text, the first image takes the left column
-and the second the right; a third starts a new slide. With text, text is on the left and images on the right.
+and the second the right; a third starts a new slide. A `2col` slide with text, or with just one image, is laid
+out in one column as before.
 
 ## Questions
 
