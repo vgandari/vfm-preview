@@ -82,7 +82,7 @@ MANUAL = {
     "MT-13": (["REQ-033"], ["UC-11"]),
     "MT-14": (["REQ-143", "REQ-144"], ["UC-17"]),
     "MT-15": (["REQ-171", "REQ-146"], ["UC-20", "UC-17"]),
-    "MT-16": (["REQ-101", "REQ-102"], ["UC-13"]),
+    "MT-16": (["REQ-101", "REQ-102", "REQ-107"], ["UC-13"]),
     "MT-17": (["REQ-151", "REQ-152"], ["UC-18"]),
     "MT-18": (["REQ-221", "REQ-222", "REQ-211", "REQ-213"], ["UC-24"]),
 }
@@ -100,7 +100,7 @@ USE_CASES = {  # use case → requirements it needs; each repository keeps the o
     "UC-10": ["REQ-031", "REQ-032", "REQ-042"],
     "UC-11": ["REQ-018", "REQ-033", "REQ-041", "REQ-044"],
     "UC-12": ["REQ-014", "REQ-015"],
-    "UC-13": ["REQ-101", "REQ-102", "REQ-103", "REQ-104", "REQ-105", "REQ-106"],
+    "UC-13": ["REQ-101", "REQ-102", "REQ-103", "REQ-104", "REQ-105", "REQ-106", "REQ-107"],
     "UC-14": ["REQ-111", "REQ-112", "REQ-113", "REQ-114"],
     "UC-15": ["REQ-121", "REQ-122", "REQ-123"],
     "UC-16": ["REQ-131", "REQ-132", "REQ-133", "REQ-134", "REQ-135", "REQ-136"],

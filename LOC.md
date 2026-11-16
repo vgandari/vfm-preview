@@ -14,6 +14,7 @@
 | vfm-preview | slide-colors-impl | 592429b | 34 | Extension keeps its own requirements; mapping generator writes both repositories (WIP) |
 | vfm-preview | slide-colors-impl | 8ac4a0f | 0 | Docs: separator-color, section-color, title-image, light text on dark sections (WIP) |
 | vfm-preview | slide-colors-impl | 9011681 | 18 | Tests for slide-colors, manual test MT-18 and mapping (WIP) |
+| vfm-preview | slide-colors-impl | 7b550ce | 20 | Implement separator-color, section-color with luminance-based text, title-image (WIP) |
 | vfm | slide-colors-impl | 056bed2 | 9 | API: source lines on slides, theme color, diagnostics (WIP) |
 | vfm | slide-colors-impl | d784d32 | 0 | Docs: slide-polish pointer |
 | vfm | slide-colors-impl | 470d550 | 0 | Tests deferred until development is complete (WIP) |
@@ -27,5 +28,6 @@
 | vfm | slide-colors-impl | 755f60d | 13 | API: separator-color, section-color, title-image (WIP) |
 | vfm | slide-colors-impl | d64d60a | 0 | Docs: separator-color, section-color, title-image, light text on dark sections (WIP) |
 | vfm | slide-colors-impl | 61b1e3d | 160 | Tests for slide-colors, manual test MT-18 and mapping (WIP) |
+| vfm | slide-colors-impl | 20a378c | 153 | Implement separator-color, section-color with luminance-based text, title-image (WIP) |
 
-Total since `main`: 1359
+Total since `main`: 1532

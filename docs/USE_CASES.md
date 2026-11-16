@@ -27,7 +27,7 @@ Use cases that `vfm` also serves are repeated in `../vfm/docs/USE_CASES.md`.
 
 | ID | Use case | Origin |
 | --- | --- | --- |
-| UC-13 | The author gives a deck a theme color. The rule under every slide title uses it, and the title slide and section slides sit on a lighter tint of it. | request |
+| UC-13 | The author gives a deck a theme color. The rule under every slide title uses it, the title slide sits on that color as it is, and section slides sit on a lighter tint of it. | request |
 | UC-15 | The author writes math in the caption of a figure, table, listing, algorithm, score or diagram. | request |
 | UC-16 | The author writes subscripts and superscripts in ordinary text (chemical formulas, units, ordinals, footnote-like marks) without switching to math. | request |
 | UC-17 | The author adds a video, especially a `.mov` file, with the same syntax as an image and plays it in the preview. | request |

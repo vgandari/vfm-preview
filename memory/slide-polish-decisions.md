@@ -16,4 +16,5 @@ metadata:
 
 slide-colors (2026-11-15): `separator-color`, `section-color` (literal bg, light text when luminance < 0.179, WCAG equal-contrast point),
 `title-image` (cover + 50 % black scrim + white text). Title slide keeps the theme tint; section-color touches only section slides.
-Branches slide-colors-impl in both repos, NOT merged back: the table-size test fails because CustomMarkdown.module.css was edited to 0.8em by the user (REQ-151 says 0.9) — ask which wins.
+Tables are 0.8 (user's choice, 2026-11-15; caption 1.25em compensates). Title slide = plain theme color, light/dark text by luminance; section slides keep the 14 % tint.
+Branches slide-colors-impl in both repos; chain not merged back yet (coverage not measured).

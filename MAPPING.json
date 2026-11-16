@@ -61,7 +61,7 @@
     ]
   },
   "test_cases": {
-    "vfm/tests/slide-polish.test.ts::theme-color sets the accent on every slide and tints only the title and section slides": {
+    "vfm/tests/slide-polish.test.ts::theme-color sets the accent on every slide, tints the section slides and colors the title slide as it is": {
       "requirements": [],
       "use_cases": [
         "UC-13"
@@ -268,9 +268,10 @@
       ],
       "kind": "automated"
     },
-    "vfm/tests/slide-colors.test.ts::without title-image the title slide is as before": {
+    "vfm/tests/slide-colors.test.ts::without title-image the title slide is the plain theme color, with text chosen by luminance": {
       "requirements": [],
       "use_cases": [
+        "UC-13",
         "UC-24"
       ],
       "kind": "automated"
