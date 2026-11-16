@@ -14,3 +14,7 @@ main → slide-polish → -api → -docs → -tests → -impl. The extension imp
 **Why:** the old relative imports assumed vfm inside the extension folder. **How to apply:** new
 `vfm-preview-<feature>` copies sit beside `vfm-preview` so `../vfm` still resolves. `vfm/node_modules` is a symlink to the
 extension's `node_modules` (untracked) so the library's tests run.
+
+Docs split (2026-11-15): renderer use cases/requirements/MAPPING.json live in `vfm/docs` and `vfm/MAPPING.json`; the extension keeps its own.
+One shared ID space; `python3 tools/generate_mapping.py` (run in vfm-preview) writes both mappings, `tools/check_mapping.py` is copied in `vfm/tools`.
+New vfm-only requirements REQ-041..045 were split out of REQ-018/030/031/033/024.
