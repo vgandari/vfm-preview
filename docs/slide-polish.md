@@ -97,7 +97,7 @@ HTML export embeds videos up to 50 MB. Word and PowerPoint get the caption and t
 Table text is 0.9 times the size of the surrounding text in documents. On a slide it starts at 0.9 and, when the table
 does not fit, shrinks in steps of 0.05 down to 0.6 before anything else happens (a 30 px slide shows 27 px at 0.9 and
 18 px at 0.6). A table still too big at 0.6 continues on the next slide with its header repeated, the most rows that
-fit at 0.6 on each. Captions keep the surrounding size. A table is not dropped when the block ends with
+fit at 0.6 on each. Cell padding and line height shrink with the text, so a smaller table is also a shorter one. Captions keep the surrounding size. Only one table (or other float) fits on a slide: a second one in the same block goes to the next slide, in any layout. A table is not dropped when the block ends with
 `@end(lead-in)`: the lead-in goes under the last piece, and the table is shrunk or split to make room for it.
 `code` inside a table is 85 % of the table text.
 
@@ -124,3 +124,5 @@ out in one column as before.
 - **A dark `section-color`, but the text is dark?** The switch is by luminance, not hue: a saturated mid-tone such as
   `#2e8b57` is brighter than it looks and keeps dark text. Darken it a little to get light text.
 - **Can I choose the text color myself?** Not yet: it follows the background.
+- **Why did my table split with one row on the next slide?** The block's `@end(lead-in)` takes room under the table. A table is shrunk first (down to 0.6, padding included); only if it still does not fit does it split. Information about a split (`table-split`) is an info note and is not listed in the Problems panel.
+- **Can I put two tables on one slide, or side by side with `2col`?** Not yet: one table or other float per slide.
