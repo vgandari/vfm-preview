@@ -9,10 +9,11 @@ import { mkdtempSync, rmSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
+// Imported directly (not bundled) so that it counts in line coverage.
+import { slideForLine } from "../src/webview/slideForLine.ts";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 let api: any;
-let slideForLine: (slides: any[], line: number) => number;
 let work = "";
 
 before(async () => {
@@ -20,7 +21,7 @@ before(async () => {
   const out = join(work, "api.mjs");
   await build({
     stdin: {
-      contents: 'export { buildSlideDeck } from "@vfm/slides"; export { slideForLine } from "./src/webview/slideForLine.ts";',
+      contents: 'export { buildSlideDeck } from "@vfm/slides";',
       resolveDir: root,
       sourcefile: "entry.ts",
     },
@@ -38,7 +39,6 @@ before(async () => {
   });
   const mod = await import(pathToFileURL(out).href);
   api = mod;
-  slideForLine = mod.slideForLine;
 });
 after(() => rmSync(work, { recursive: true, force: true }));
 
