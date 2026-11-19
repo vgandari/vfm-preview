@@ -408,6 +408,15 @@
       ],
       "kind": "automated"
     },
+    "vfm-preview/tests/preview-bugs.test.ts::the HTML export embeds a TIFF picture instead of leaving a relative path the browser cannot find": {
+      "requirements": [
+        "REQ-257"
+      ],
+      "use_cases": [
+        "UC-56"
+      ],
+      "kind": "automated"
+    },
     "vfm-preview/tests/preview-bugs.test.ts::each part of the document's title area carries the line of the YAML key it came from": {
       "requirements": [
         "REQ-258"

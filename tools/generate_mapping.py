@@ -32,6 +32,7 @@ TEST_FILES = [
     ("vfm", "test/music-audio.test.ts"),
     ("vfm", "test/no-network.test.ts"),
     ("vfm", "tests/preview-bugs.test.ts"),
+    ("vfm", "tests/package-files.test.ts"),
     ("vfm-preview", "tests/preview-bugs.test.ts"),
 ]
 
@@ -162,6 +163,7 @@ USE_CASES = {  # use case → requirements it needs; each repository keeps the o
     "UC-54": ["REQ-256"],
     "UC-56": ["REQ-257"],
     "UC-57": ["REQ-258"],
+    "UC-58": ["REQ-334"],
 }
 
 TEST_RE = re.compile(r'^(?P<pre>(?:\s*//[^\n]*\n)*)(?P<line>test\((?P<q>["\'])(?P<title>(?:(?!(?P=q)).|\\.)*)(?P=q))', re.M)

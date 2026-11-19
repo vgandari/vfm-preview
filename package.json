@@ -2,7 +2,7 @@
   "name": "vfm-preview",
   "displayName": "VFM Preview",
   "description": "Preview Markdown files using the custom vfm parser/renderer.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "victor",
   "license": "MIT",
   "engines": {
@@ -246,7 +246,7 @@
     "abcjs": "^6.7.1",
     "jszip": "^3.10.2",
     "katex": "^0.19.0",
-    "vfm": "github:vgandari/vfm",
+    "vfm": "github:vgandari/vfm#v1.0.1",
     "mdast-util-from-markdown": "^2.0.0",
     "mdast-util-gfm": "^3.1.0",
     "mdast-util-math": "^3.0.0",
