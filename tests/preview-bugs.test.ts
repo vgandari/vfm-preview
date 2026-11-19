@@ -164,6 +164,14 @@ test("the HTML export embeds a picture whose caption holds a link", () => {
   assert.match(out, /!\[\[A source\]\(https:\/\/x\.y\/z\)\]\(data:image\/png/);
 });
 
+// Verifies REQ-257 (UC-56)
+test("the HTML export embeds a TIFF picture instead of leaving a relative path the browser cannot find", () => {
+  const dir = mkdtempSync(join(work, "export-"));
+  writeFileSync(join(dir, "file.tif"), png);
+  const out = inlineImages("![](./file.tif)\n", dir);
+  assert.match(out, /\(data:image\/tiff;base64,/);
+});
+
 // ─── The title area ──────────────────────────────────────────────────────────
 
 // Verifies REQ-258 (UC-57)

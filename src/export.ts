@@ -43,6 +43,8 @@ const MIME: Record<string, string> = {
   ".webp": "image/webp",
   ".svg": "image/svg+xml",
   ".avif": "image/avif",
+  ".tif": "image/tiff",
+  ".tiff": "image/tiff",
   // Videos use the image syntax. A .mov is the same container as .mp4 (QuickTime and MP4 share their box
   // format), and Chromium may refuse a data: URI typed video/quicktime that it plays happily as video/mp4.
   ".mov": "video/mp4",
