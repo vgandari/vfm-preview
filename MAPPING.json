@@ -65,6 +65,18 @@
     "UC-42": [
       "REQ-253",
       "REQ-254"
+    ],
+    "UC-53": [
+      "REQ-255"
+    ],
+    "UC-54": [
+      "REQ-256"
+    ],
+    "UC-56": [
+      "REQ-257"
+    ],
+    "UC-57": [
+      "REQ-258"
     ]
   },
   "test_cases": {
@@ -324,6 +336,87 @@
       "use_cases": [],
       "kind": "automated"
     },
+    "vfm-preview/tests/preview-bugs.test.ts::the slide menu names the title slide, numbers every other slide, and marks the parts of a split slide": {
+      "requirements": [
+        "REQ-255"
+      ],
+      "use_cases": [
+        "UC-53"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/preview-bugs.test.ts::the menu label of a slide with no title, an inline-formatted title, and a References slide": {
+      "requirements": [
+        "REQ-255"
+      ],
+      "use_cases": [
+        "UC-53"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/preview-bugs.test.ts::the slide counter is the button that opens the menu, and a click on an entry goes to that slide": {
+      "requirements": [
+        "REQ-255"
+      ],
+      "use_cases": [
+        "UC-53"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/preview-bugs.test.ts::a picture's version is the time its file last changed, and it changes when the file does": {
+      "requirements": [
+        "REQ-256"
+      ],
+      "use_cases": [
+        "UC-54"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/preview-bugs.test.ts::a versioned URL is the URL with the time added, found by the path as written or percent-encoded": {
+      "requirements": [
+        "REQ-256"
+      ],
+      "use_cases": [
+        "UC-54"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/preview-bugs.test.ts::the document view and the slide view both put the version on a local picture, and nothing watches the files": {
+      "requirements": [
+        "REQ-256"
+      ],
+      "use_cases": [
+        "UC-54"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/preview-bugs.test.ts::mapImageTargets reads an alt text that holds brackets and links": {
+      "requirements": [
+        "REQ-257"
+      ],
+      "use_cases": [
+        "UC-56"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/preview-bugs.test.ts::the HTML export embeds a picture whose caption holds a link": {
+      "requirements": [
+        "REQ-257"
+      ],
+      "use_cases": [
+        "UC-56"
+      ],
+      "kind": "automated"
+    },
+    "vfm-preview/tests/preview-bugs.test.ts::each part of the document's title area carries the line of the YAML key it came from": {
+      "requirements": [
+        "REQ-258"
+      ],
+      "use_cases": [
+        "UC-57"
+      ],
+      "kind": "automated"
+    },
     "manual/MT-01": {
       "requirements": [
         "REQ-001"
@@ -519,6 +612,20 @@
       ],
       "use_cases": [
         "UC-42"
+      ],
+      "kind": "manual",
+      "status": "not run"
+    },
+    "manual/MT-26": {
+      "requirements": [
+        "REQ-255",
+        "REQ-256",
+        "REQ-258"
+      ],
+      "use_cases": [
+        "UC-53",
+        "UC-54",
+        "UC-57"
       ],
       "kind": "manual",
       "status": "not run"

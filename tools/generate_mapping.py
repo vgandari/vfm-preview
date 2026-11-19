@@ -31,6 +31,8 @@ TEST_FILES = [
     ("vfm", "test/bibliography-client.test.ts"),
     ("vfm", "test/music-audio.test.ts"),
     ("vfm", "test/no-network.test.ts"),
+    ("vfm", "tests/preview-bugs.test.ts"),
+    ("vfm-preview", "tests/preview-bugs.test.ts"),
 ]
 
 # (title regex, requirements, use cases); first match wins.
@@ -96,6 +98,10 @@ MANUAL = {
     "MT-18": (["REQ-221", "REQ-222", "REQ-211", "REQ-213"], ["UC-24"]),
     "MT-21": (["REQ-251", "REQ-252"], ["UC-41"]),
     "MT-22": (["REQ-253", "REQ-254"], ["UC-42"]),
+    "MT-23": (["REQ-321"], ["UC-48"]),
+    "MT-24": (["REQ-329", "REQ-330", "REQ-331"], ["UC-55"]),
+    "MT-25": (["REQ-332", "REQ-333"], ["UC-55", "UC-50"]),
+    "MT-26": (["REQ-255", "REQ-256", "REQ-258", "REQ-325", "REQ-326"], ["UC-53", "UC-54", "UC-57", "UC-49"]),
 }
 
 USE_CASES = {  # use case → requirements it needs; each repository keeps the ones it owns (see below)
@@ -146,6 +152,16 @@ USE_CASES = {  # use case → requirements it needs; each repository keeps the o
     "UC-41": ["REQ-251", "REQ-252"],
     "UC-42": ["REQ-253", "REQ-254"],
     "UC-40": ["REQ-211", "REQ-212", "REQ-213", "REQ-214", "REQ-215"],
+    "UC-48": ["REQ-321"],
+    "UC-49": ["REQ-325", "REQ-326"],
+    "UC-50": ["REQ-333"],
+    "UC-51": ["REQ-323", "REQ-328"],
+    "UC-52": ["REQ-327"],
+    "UC-55": ["REQ-322", "REQ-324", "REQ-329", "REQ-330", "REQ-331", "REQ-332"],
+    "UC-53": ["REQ-255"],
+    "UC-54": ["REQ-256"],
+    "UC-56": ["REQ-257"],
+    "UC-57": ["REQ-258"],
 }
 
 TEST_RE = re.compile(r'^(?P<pre>(?:\s*//[^\n]*\n)*)(?P<line>test\((?P<q>["\'])(?P<title>(?:(?!(?P=q)).|\\.)*)(?P=q))', re.M)
