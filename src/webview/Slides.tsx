@@ -17,6 +17,8 @@ import styles from "@vfm/CustomMarkdown.module.css";
 import { STAGE_WIDTH, STAGE_HEIGHT } from "@vfm/constants";
 import { bibliographyFor } from "./bib";
 import { slideForLine } from "./slideForLine";
+import { slideLabel, slideTitle } from "./slideLabel";
+import { versionedUrl } from "../versionedUrl";
 import { expandedLine } from "./interact";
 import type { HostMessage } from "../protocol";
 import type { BibEntry } from "@vfm/bibliography";
@@ -64,6 +66,8 @@ export interface SlidesProps {
   baseUri: string;
   sourceMap?: SourceLoc[];
   bib?: Record<string, BibEntry>;
+  /** Modification time of each local picture or video, by the path as written (see ../assetVersions.ts). */
+  assets?: Record<string, number>;
   maxHeadings: number;
   /** Lay every slide out one per page, with every step shown, instead of the viewer (PDF export). */
   print?: boolean;
@@ -72,16 +76,18 @@ export interface SlidesProps {
 
 type Built = { deck: SlideDeck } | { error: Diagnostic[] };
 
-function resolver(baseUri: string) {
+function resolver(baseUri: string, assets?: Record<string, number>) {
   const base = baseUri.endsWith("/") ? baseUri : baseUri + "/";
-  return (url: string) => (/^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(url) ? url : new URL(url, base).toString());
+  // A local file carries the time it last changed, so a picture changed on disk is a new URL and is loaded again.
+  return (url: string) => (/^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(url) ? url : versionedUrl(new URL(url, base).toString(), url, assets));
 }
 
-export default function Slides({ text, baseUri, sourceMap, bib, maxHeadings, print, onDiagnostics }: SlidesProps) {
+export default function Slides({ text, baseUri, sourceMap, bib, assets, maxHeadings, print, onDiagnostics }: SlidesProps) {
   const [built, setBuilt] = useState<Built | null>(null);
   const [index, setIndex] = useState(0);
   const [step, setStep] = useState(0);
   const [showProblems, setShowProblems] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const [scale, setScale] = useState(1);
   const frame = useRef<HTMLDivElement>(null);
   const stage = useRef<HTMLDivElement>(null);
@@ -113,7 +119,7 @@ export default function Slides({ text, baseUri, sourceMap, bib, maxHeadings, pri
   // Build (asynchronously: images first). A rebuild keeps showing the old deck.
   useEffect(() => {
     let cancelled = false;
-    const resolveUrl = resolver(baseUri);
+    const resolveUrl = resolver(baseUri, assets);
     const options = { sourceMap, maxHeadings, resolveUrl, bibliography: bibliographyFor(text, bib) };
     (async () => {
       try {
@@ -133,7 +139,7 @@ export default function Slides({ text, baseUri, sourceMap, bib, maxHeadings, pri
     return () => {
       cancelled = true;
     };
-  }, [text, baseUri, sourceMap, bib, maxHeadings]);
+  }, [text, baseUri, sourceMap, bib, assets, maxHeadings]);
 
   const deck = built && "deck" in built ? built.deck : null;
   const total = deck?.slides.length ?? 0;
@@ -332,6 +338,9 @@ export default function Slides({ text, baseUri, sourceMap, bib, maxHeadings, pri
     stage.current?.querySelectorAll<HTMLElement>("[data-step]").forEach((el) => {
       el.classList.toggle("vfm-hidden", Number(el.dataset.step) > step);
     });
+    // React reuses an element that has the same place on the next slide and does not know about the class added above:
+    // one that is no longer a step of this slide must not stay hidden.
+    stage.current?.querySelectorAll<HTMLElement>(".vfm-hidden:not([data-step])").forEach((el) => el.classList.remove("vfm-hidden"));
   });
 
   const element: ReactElement | null = useMemo(
@@ -405,7 +414,7 @@ export default function Slides({ text, baseUri, sourceMap, bib, maxHeadings, pri
                   setIndex(i);
                   setStep(0);
                 }}
-                title={sl.cover ? "Title" : inlineTitle(sl)}
+                title={slideTitle(sl)}
               />
             ))}
           </aside>
@@ -440,10 +449,17 @@ export default function Slides({ text, baseUri, sourceMap, bib, maxHeadings, pri
       </div>
       <div className="vfm-slides-bar">
         <button onClick={() => go(-1)} disabled={index === 0 && step === 0} title="Previous (←)">‹</button>
-        <span className="vfm-slides-count">
-          {index + 1} / {total}
-          {lastStep > 0 ? ` · step ${step}/${lastStep}` : ""}
-        </span>
+        <SlideMenu
+          slides={deck!.slides}
+          index={index}
+          open={showMenu}
+          onToggle={setShowMenu}
+          onPick={(i) => {
+            setIndex(i);
+            setStep(0);
+          }}
+          counter={`${index + 1} / ${total}${lastStep > 0 ? ` · step ${step}/${lastStep}` : ""}`}
+        />
         <button onClick={() => go(1)} disabled={index === total - 1 && step === lastStep} title="Next (→ or Space)">›</button>
         {!isPresenter && !inExport && !fullscreen && (
           <button className={showThumbs ? "vfm-on" : ""} onClick={toggleThumbs} title="Slide thumbnails (T)">
@@ -478,6 +494,75 @@ export default function Slides({ text, baseUri, sourceMap, bib, maxHeadings, pri
   );
 }
 
+/** The slide counter, which opens a list of every slide, numbered and titled, to go to one. */
+function SlideMenu({
+  slides,
+  index,
+  open,
+  onToggle,
+  onPick,
+  counter,
+}: {
+  slides: SlideDeck["slides"];
+  index: number;
+  open: boolean;
+  onToggle: (open: boolean) => void;
+  onPick: (index: number) => void;
+  counter: string;
+}) {
+  const root = useRef<HTMLSpanElement>(null);
+  const current = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    current.current?.scrollIntoView({ block: "nearest" });
+    const away = (e: MouseEvent) => {
+      if (!root.current?.contains(e.target as Node)) onToggle(false);
+    };
+    const key = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onToggle(false);
+    };
+    document.addEventListener("mousedown", away);
+    document.addEventListener("keydown", key);
+    return () => {
+      document.removeEventListener("mousedown", away);
+      document.removeEventListener("keydown", key);
+    };
+  }, [open, onToggle]);
+  return (
+    <span ref={root} className="vfm-slide-menu-wrap">
+      <button
+        type="button"
+        className="vfm-slides-count"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        title="Go to a slide"
+        onClick={() => onToggle(!open)}
+      >
+        {counter} ▾
+      </button>
+      {open && (
+        <ul className="vfm-slide-menu" role="listbox" aria-label="Slides">
+          {slides.map((sl, i) => (
+            <li key={i} role="option" aria-selected={i === index}>
+              <button
+                type="button"
+                ref={i === index ? current : undefined}
+                className={i === index ? "vfm-current" : undefined}
+                onClick={() => {
+                  onPick(i);
+                  onToggle(false);
+                }}
+              >
+                {slideLabel(sl, i)}
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </span>
+  );
+}
+
 /** A small, final-step rendering of a slide: the presenter's "next" preview. */
 function MiniStage({ deck, index, scale = 0.3 }: { deck: SlideDeck; index: number; scale?: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -494,12 +579,6 @@ function MiniStage({ deck, index, scale = 0.3 }: { deck: SlideDeck; index: numbe
       </div>
     </div>
   );
-}
-
-/** A slide's title as plain text, for tooltips. */
-function inlineTitle(slide: SlideDeck["slides"][number]): string {
-  const text = (n: any): string => (typeof n.value === "string" ? n.value : (n.children ?? []).map(text).join(""));
-  return slide.title.map(text).join("") || "Untitled slide";
 }
 
 const THUMB_SCALE = 0.125;

@@ -4,6 +4,7 @@ import * as fs from "fs";
 import { expandIncludes } from "@vfm/slides/includes";
 import type { Diagnostic, SourceLoc } from "@vfm/slides/types";
 import type { ExportFormat, HostMessage, Mode, RenderOptions, WebviewMessage } from "./protocol";
+import { assetVersions } from "./assetVersions";
 import { findBrowser, inlineImages, printToPdf, standaloneHtml, writeTemp } from "./export";
 import { parse as parseYaml } from "yaml";
 import { loadBibliography } from "./bibliography";
@@ -78,6 +79,9 @@ class PreviewPanel {
 
   private readonly disposables: vscode.Disposable[] = [];
   private ready = false;
+  /** The text and the picture times of the last update sent, to see whether a picture changed since. */
+  private sentText = "";
+  private sentAssets: Record<string, number> = {};
   private onReady: Array<() => void> = [];
   private timer: NodeJS.Timeout | undefined;
   /** Editor and preview scroll each other; this keeps a scroll we caused from echoing back. */
@@ -128,6 +132,11 @@ class PreviewPanel {
 
   toggleMode() {
     this.setMode(this.mode === "slides" ? "document" : "slides");
+  }
+
+  /** VS Code came back to the front: a picture may have been saved in another program. */
+  static refreshAssetsAll() {
+    for (const p of PreviewPanel.panels.values()) p.refreshIfAssetsChanged();
   }
 
   static refreshAll() {
@@ -194,6 +203,7 @@ class PreviewPanel {
           PreviewPanel.active = this;
           setModeContext(this.mode);
         }
+        if (panel.visible) this.refreshIfAssetsChanged();
       },
       null,
       this.disposables
@@ -296,6 +306,9 @@ class PreviewPanel {
     const baseUri = this.panel.webview
       .asWebviewUri(vscode.Uri.file(path.dirname(this.uri.fsPath)))
       .toString();
+    const assets = assetVersions(source.text, path.dirname(this.uri.fsPath));
+    this.sentAssets = assets;
+    this.sentText = source.text;
     const message: HostMessage = {
       type: "update",
       text: source.text,
@@ -303,8 +316,18 @@ class PreviewPanel {
       options: renderOptions(this.mode),
       sourceMap: source.sourceMap,
       bib: bib.entries,
+      assets,
     };
     void this.panel.webview.postMessage(message);
+  }
+
+  /** The author comes back to the preview: render again if a picture changed on disk meanwhile (nothing watches the files). */
+  refreshIfAssetsChanged() {
+    if (!this.ready || !this.sentText) return;
+    const now = assetVersions(this.sentText, path.dirname(this.uri.fsPath));
+    const before = this.sentAssets;
+    const keys = new Set([...Object.keys(now), ...Object.keys(before)]);
+    if ([...keys].some((k) => now[k] !== before[k])) this.scheduleUpdate();
   }
 
   /** Shows the host's and the webview's findings in the Problems panel, by original file. */
@@ -607,6 +630,9 @@ export function activate(context: vscode.ExtensionContext) {
     vscode.commands.registerCommand("vfmPreview.showSlides", () => PreviewPanel.current()?.setMode("slides")),
     vscode.commands.registerCommand("vfmPreview.showDocument", () => PreviewPanel.current()?.setMode("document")),
     diagnostics,
+    vscode.window.onDidChangeWindowState((e) => {
+      if (e.focused) PreviewPanel.refreshAssetsAll();
+    }),
     vscode.workspace.onDidChangeConfiguration((e) => {
       if (e.affectsConfiguration("vfmPreview")) PreviewPanel.refreshAll();
     })

@@ -14,6 +14,7 @@ import Slides, { ProblemList } from "./Slides";
 import type { HostMessage, UpdateMessage, WebviewMessage } from "../protocol";
 import { exportDocument } from "./exports";
 import { bibliographyFor } from "./bib";
+import { versionedUrl } from "../versionedUrl";
 import { anchors, blockForLine, expandedLine, flash, lineForTop, lineOwner, locOf, mainLine, topForLine, type SourceMap } from "./interact";
 
 declare function acquireVsCodeApi(): { postMessage(msg: WebviewMessage): void };
@@ -85,7 +86,7 @@ function useScrollSync(bodyRef: React.RefObject<HTMLDivElement | null>, sourceMa
 }
 
 function DocumentView({ state }: { state: State }) {
-  const { text, baseUri, options, sourceMap, bib } = state;
+  const { text, baseUri, options, sourceMap, bib, assets } = state;
   const bodyRef = useRef<HTMLDivElement>(null);
 
   // Document mode renders everything; @slide wrappers are transparent. Fatal directive
@@ -107,16 +108,20 @@ function DocumentView({ state }: { state: State }) {
     post({ type: "diagnostics", items: problems });
   }, [problems]);
 
-  // Point relative image and video URLs at the document's folder.
+  // Point relative image and video URLs at the document's folder, with the time the file last changed, so a picture that
+  // changed on disk is a new URL and not the copy the webview already has. The path as written is kept for the next time.
   useLayoutEffect(() => {
     const base = baseUri.endsWith("/") ? baseUri : baseUri + "/";
-    bodyRef.current?.querySelectorAll("img, video").forEach((img) => {
-      const src = img.getAttribute("src");
-      if (src && !/^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(src)) {
-        img.setAttribute("src", new URL(src, base).toString());
+    bodyRef.current?.querySelectorAll("img, video").forEach((el) => {
+      const img = el as HTMLElement;
+      const written = img.dataset.vfmSrc ?? img.getAttribute("src");
+      if (written && !/^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(written)) {
+        img.dataset.vfmSrc = written;
+        const url = versionedUrl(new URL(written, base).toString(), written, assets);
+        if (img.getAttribute("src") !== url) img.setAttribute("src", url);
       }
     });
-  }, [rendered, baseUri]);
+  }, [rendered, baseUri, assets]);
 
   useScrollSync(bodyRef, sourceMap, rendered);
 
@@ -145,6 +150,7 @@ function Preview({ state }: { state: State }) {
           baseUri={state.baseUri}
           sourceMap={state.sourceMap}
           bib={state.bib}
+          assets={state.assets}
           maxHeadings={options.maxHeadings}
           print={options.print}
           onDiagnostics={onDiagnostics}

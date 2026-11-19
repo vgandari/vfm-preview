@@ -10,6 +10,7 @@
  * page with every reveal step shown (`print: true`).
  */
 
+import { mapImageTargets } from "./mapImageTargets.ts";
 import * as fs from "fs";
 import * as os from "os";
 import * as path from "path";
@@ -79,24 +80,19 @@ function inlineTitleImage(text: string, baseDir: string): string {
 
 /** Replaces `![alt](relative/path.png)` (or a video, up to 50 MB) and the header's `title-image` with data URIs so the HTML stands alone. */
 export function inlineImages(text: string, baseDir: string, options: { videos?: boolean } = {}): string {
-  return inlineTitleImage(text, baseDir).replace(
-    /(!\[[^\]]*\]\()\s*(<[^>]+>|[^)\s]+)((?:\s+"[^"]*")?\s*\))/g,
-    (whole, open: string, target: string, close: string) => {
-      const raw = target.startsWith("<") ? target.slice(1, -1) : target;
-      if (/^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(raw)) return whole;
-      const mime = MIME[path.extname(raw).toLowerCase()];
-      if (!mime) return whole;
-      if (mime.startsWith("video/") && options.videos === false) return whole; // linked, not embedded
-      try {
-        const file = path.resolve(baseDir, decodeURIComponent(raw.split("?")[0]));
-        if (mime.startsWith("video/") && fs.statSync(file).size > MAX_INLINE_VIDEO_BYTES) return whole;
-        const data = fs.readFileSync(file).toString("base64");
-        return `${open}data:${mime};base64,${data}${close.replace(/^\s+/, " ")}`;
-      } catch {
-        return whole; // missing file: leave the link, the page will show a broken image
-      }
+  return mapImageTargets(inlineTitleImage(text, baseDir), (raw) => {
+    if (/^([a-z][a-z0-9+.-]*:|\/\/|#)/i.test(raw)) return undefined;
+    const mime = MIME[path.extname(raw).toLowerCase()];
+    if (!mime) return undefined;
+    if (mime.startsWith("video/") && options.videos === false) return undefined; // linked, not embedded
+    try {
+      const file = path.resolve(baseDir, decodeURIComponent(raw.split("?")[0]));
+      if (mime.startsWith("video/") && fs.statSync(file).size > MAX_INLINE_VIDEO_BYTES) return undefined;
+      return `data:${mime};base64,${fs.readFileSync(file).toString("base64")}`;
+    } catch {
+      return undefined; // missing file: leave the link, the page will show a broken image
     }
-  );
+  });
 }
 
 /** Inlines the woff2 fonts and drops the woff/ttf fallbacks, which every current browser can do without. */

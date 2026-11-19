@@ -46,6 +46,47 @@
   color: var(--vscode-button-secondaryForeground, #fff);
 }
 .vfm-slides-bar button:disabled { opacity: 0.35; cursor: default; }
+
+/* The slide counter opens a list of every slide above the bar. */
+.vfm-slide-menu-wrap { position: relative; }
+.vfm-slides-bar button.vfm-slides-count { font-size: 12px; }
+.vfm-slide-menu {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  min-width: 240px;
+  max-width: min(520px, 90vw);
+  max-height: min(60vh, 420px);
+  overflow-y: auto;
+  border-radius: 6px;
+  border: 1px solid var(--vscode-menu-border, var(--vscode-widget-border, #454545));
+  background: var(--vscode-menu-background, var(--vscode-editorWidget-background, #252526));
+  color: var(--vscode-menu-foreground, var(--vscode-foreground, #ccc));
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+.vfm-slides-bar .vfm-slide-menu button {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 4px 10px;
+  font-size: 13px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: transparent;
+  color: inherit;
+}
+.vfm-slides-bar .vfm-slide-menu button:hover { background: var(--vscode-menu-selectionBackground, var(--vscode-list-hoverBackground, #2a2d2e)); }
+.vfm-slides-bar .vfm-slide-menu button.vfm-current {
+  background: var(--vscode-list-activeSelectionBackground, #094771);
+  color: var(--vscode-list-activeSelectionForeground, #fff);
+}
 .vfm-slides-bar .vfm-slides-problems {
   font-size: 12px;
   background: var(--vscode-inputValidation-warningBackground, #5a4a00);

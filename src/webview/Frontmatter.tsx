@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { parseFrontmatter, renderMarkdown, type Affiliation } from "@vfm/pipeline";
+import { headerKeyLine, parseFrontmatter, renderMarkdown, type Affiliation } from "@vfm/pipeline";
 
 function affiliationText(a: Affiliation): string {
   const place = [a.city, a.region, a.country].filter(Boolean).join(", ");
@@ -14,6 +14,11 @@ export default function Frontmatter({ text }: { text: string }) {
     return <pre className="vfm-error">{(err as Error).message}</pre>;
   }
   const { meta, data } = parsed;
+  // Each part carries the line of the YAML key it came from, so a double click jumps there (and the header as a whole to its first line).
+  const at = (...keys: string[]) => {
+    const line = headerKeyLine(text, keys);
+    return line ? { "data-line": line } : {};
+  };
   if (Object.keys(data).length === 0) return null;
 
   // Number affiliations in order of first appearance across authors.
@@ -35,12 +40,12 @@ export default function Frontmatter({ text }: { text: string }) {
   }
 
   return (
-    <header className="vfm-frontmatter">
-      {meta.title && <h1>{meta.title}</h1>}
-      {meta.subtitle && <p className="vfm-subtitle">{meta.subtitle}</p>}
+    <header className="vfm-frontmatter" data-line={1}>
+      {meta.title && <h1 {...at("title")}>{meta.title}</h1>}
+      {meta.subtitle && <p className="vfm-subtitle" {...at("subtitle")}>{meta.subtitle}</p>}
 
       {authors.length > 0 && (
-        <div className="vfm-authors">
+        <div className="vfm-authors" {...at("author", "authors")}>
           <p>
             {authors.map(({ author, nums }, i) => (
               <span key={i} className="vfm-author">
@@ -74,10 +79,10 @@ export default function Frontmatter({ text }: { text: string }) {
         </div>
       )}
 
-      {meta.date && <p className="vfm-date">{meta.date}</p>}
+      {meta.date && <p className="vfm-date" {...at("date")}>{meta.date}</p>}
 
       {abstract && (
-        <section className="vfm-abstract">
+        <section className="vfm-abstract" {...at("abstract")}>
           <h2>Abstract</h2>
           {abstract}
         </section>
