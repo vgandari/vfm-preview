@@ -58,6 +58,8 @@ not in the file shows as a red "unknown citation" marker. Citations work in docu
   holds the line and outlines it for about a second; in slide mode it shows the slide that holds the line (inside an
   `@slide … @end` block, the continuation slide that starts at or before the line; between blocks, the slide above; before the
   first block, slide 1). Together with the double click this goes both ways.
+- **Slide menu** (slide mode, also in the exported HTML): click the slide counter to list every slide as "Title: …", "2. Intro", "3. Topic (1/2)" and go to one.
+- **Pictures** that change on disk show the new picture the next time the preview renders or VS Code comes to the front; no file is watched.
 - **Slide thumbnails** (slide mode; the key **T** or the "Slides" button toggles them): each slide's number is centered under its thumbnail, and a thin
   line separates it from the next thumbnail.
 
@@ -67,6 +69,9 @@ not in the file shows as a red "unknown citation" marker. Citations work in docu
 Yes: **VFM: Show Cursor Position in Preview** (⌘K J). Clicking in the editor does not jump on its own because the editor's cursor moves
 all the time (for example while you type), and a preview that follows every keystroke is distracting. The jump is a command instead.
 Scrolling the editor already moves the document preview along (scroll sync).
+
+**Why does my picture not change after I save it in another program?**
+The preview does not watch files. It looks at each picture's modification time when it renders and when VS Code comes back to the front, and loads a picture again when the time changed. Click the preview, or edit any line of the Markdown, to refresh it.
 
 **Why did the slide number move below the thumbnail?**
 It used to sit on top of the picture and hid the slide's own corner; under the thumbnail it hides nothing and the separator makes it

@@ -22,7 +22,7 @@ A `@slide` block wraps existing blocks and closes with `@end`. Both directives s
 @end(leadin)
 ```
 
-- **`[title]`** is optional, slide-only, inline Markdown, and overrides the section title. `[]` means a blank title. `@cite` is an error inside it. A literal bracket is written `\]`.
+- **`[title]`** is optional, slide-only, inline Markdown, and overrides the section title. `[]` means a blank title. `@cite` is an error inside it (it is allowed in a lead-in and in a caption). A literal bracket is written `\]`.
 - **`(leadin)`** is optional, slide-only, inline Markdown, and shown on the last rendered slide of the block. Parentheses must balance, with `\)` to escape. `@cite` is an error here too.
 - **Options** are order-independent. Unknown or malformed options are fatal in both modes, because `nodoc` changes document output.
 - **Brackets** must follow `@slide` with no space, and the whole opener stays on one line.
@@ -121,7 +121,7 @@ First, `@include` runs as a textual substitution on raw source, recursively, wit
 | No layout given | single column |
 | `rtext` / `ltext`, no images | single column |
 | `rtext` / `ltext`, with images | text on one side, image region on the other |
-| `2col`, slide without an image | two columns, balanced at block boundaries |
+| `2col`, slide without an image | two columns, balanced at block boundaries; a blank line between two groups of bullets is a block boundary, an HTML comment between them is not |
 | `2col`, slide with an image | single column for that slide |
 | `2col`, two or more images and no text | one image per column |
 | Image-only slide | one image per slide |
@@ -243,7 +243,7 @@ A renderer that does not support stepping ignores `steps` and shows everything. 
 
 | Code | Severity | Reported when |
 | --- | --- | --- |
-| `syntax` | error | Unbalanced `@end`, unknown option, directive on an inline line, `@cite` in a title or lead-in |
+| `syntax` | error | Unbalanced `@end`, unknown option, directive on an inline line, `@cite` in a title |
 | `unknown-label` | error | A cross-reference names a label that exists nowhere in the document |
 | `doc-ref-into-nodoc` | error | The document references a label defined only in a `nodoc` block |
 | `overflow` | error | A single unit cannot fit on an empty slide |
@@ -270,3 +270,7 @@ None of these blocks the design. Each can be added later without changing the pi
 - **Option names:** `steplists` and `stepleadin` are placeholders.
 - **Comment-wrapped form:** `<!-- @slide(...) -->` so raw files read cleanly on sites that do not know the syntax.
 - **Including an existing figure by label** in a second `@slide` block, so one figure can serve several slides.
+
+## References slide
+
+After the last content slide the deck holds a `References` slide for every reference that the deck cites (in text, in a caption or in a lead-in) and that resolves, in the order of the reference style. A long list continues on further slides, cut between entries, titled `References (1/2)`. A deck with no resolved citation has none. It belongs to no `@slide` block, so no line of the file lands on it.

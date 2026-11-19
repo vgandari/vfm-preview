@@ -46,3 +46,12 @@ an exported file.
 | --- | --- | --- |
 | UC-41 | The author scans the slide thumbnails and reads each slide's number under its thumbnail, with a clear break before the next one. | request |
 | UC-42 | The author puts the cursor on a line of the file and jumps to what that line shows in the preview (the block in document mode, the slide in slide mode). | request |
+
+## New in `preview-bugs`
+
+| ID | Use case | Origin |
+| --- | --- | --- |
+| UC-53 | The presenter opens a list of all slides, numbered and titled, from the slide counter and goes to one. | request |
+| UC-54 | The author saves a changed picture and sees it in the preview without editing the Markdown file. | bug report |
+| UC-56 | The author exports a document whose figures have links in their captions and the pictures are in the file. | bug report |
+| UC-57 | The author double-clicks the title, subtitle, authors, date or abstract of a document in the preview, and lands on the line of the YAML header that holds it. | bug report |

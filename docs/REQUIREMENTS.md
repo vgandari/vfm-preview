@@ -92,3 +92,14 @@ The renderer's requirements for `separator-color`, `section-color` and `title-im
 | REQ-252 | The slide thumbnail sidebar shall draw a separator between a slide's number and the thumbnail that follows it. | T |
 | REQ-253 | When the author runs the command `vfmPreview.revealInPreview`, the preview shall open if it is not open, and in document mode shall scroll to the rendered block that holds the cursor's line, including a line of the main file that follows an `@include`, and highlight that block for 1.4 seconds. | D |
 | REQ-254 | When the author runs the command `vfmPreview.revealInPreview` in slide mode, the preview shall show the slide that holds the cursor's line: the slide whose `@slide … @end` block contains the line, the last continuation slide of that block that starts at or before the line, or else the nearest slide above the line, or else the first slide. | T |
+
+## E. New in `preview-bugs`
+
+The renderer's requirements for task checkboxes, highlights, citations in captions and lead-ins, captions, lines, bullet sets, the References slide and the stylesheet are REQ-321 to REQ-333 in `../vfm/docs/REQUIREMENTS.md`.
+
+| ID | Requirement | Method |
+| --- | --- | --- |
+| REQ-255 | In slide mode the preview shall make the slide counter a button that opens a list of every slide, each as its number and title (the title slide as "Title:" and the document's title, a slide that was split as "(part/parts)"), shall go to the slide that is picked, and shall close the list on a pick, on Escape and on a click outside it. | T, D |
+| REQ-256 | The preview shall send the modification time of each local picture and video of the document with every update and add it to the URL of that file, so that a file that changed on disk is loaded again and one that did not is not, and shall send a new update when VS Code or the preview comes back to the front and a time differs from the last one sent, without watching any file. | T, D |
+| REQ-257 | The HTML export shall embed a local picture whose alt text holds brackets or a link. | T |
+| REQ-258 | The preview shall give the title, subtitle, authors, date and abstract of a document's title area the source line of the YAML key each came from. | T |
