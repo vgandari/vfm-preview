@@ -43,6 +43,8 @@ export type UpdateMessage = {
   sourceMap?: SourceLoc[];
   /** Entries of the `bibliography:` file(s) in the YAML header, by cite key, for `@cite(key)`. */
   bib?: Record<string, BibEntry>;
+  /** Modification time of each local picture or video, by the path as written (src/assetVersions.ts): a changed file is a new URL. */
+  assets?: Record<string, number>;
 };
 
 export type WebviewMessage =
