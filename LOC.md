@@ -59,5 +59,13 @@
 | vfm | slides-tutorial | 700335d | 0 | Docs: slides tutorial, eleven example decks, UC-47 and REQ-318 to REQ-320, README (WIP) |
 | vfm | slides-tutorial | 142779b | 0 | Docs: references already say what they point at ("Equation 1", not "Equation Equation 1"); block label for a single equation; pseudo-syntax shown as text (WIP) |
 | vfm | slides-tutorial | fb86c23 | 200 | Tests: the slides tutorial's example decks build and show the structure the tutorial promises; mapping (WIP) |
+| vfm-preview | preview-bugs | 73750f2 | 11 | API: UpdateMessage.assets and versionedUrl (WIP) |
+| vfm-preview | preview-bugs | 0779ca9 | 0 | Docs: UC-53, UC-54, UC-56, UC-57, REQ-255 to REQ-258, manual tests MT-23 to MT-26, slide menu and picture refresh in the README (WIP) |
+| vfm-preview | preview-bugs | 9781023 | 157 | Tests: slide menu labels, picture versions, export of figures with links in captions, title area lines; mapping (WIP) |
+| vfm-preview | preview-bugs | 90d6c8f | 276 | Impl: slide menu, pictures versioned by modification time, image scanner for the export that reads brackets in alt text, line numbers on the title area, hidden-step class cleanup |
+| vfm | preview-bugs | 8149e2c | 13 | API: Slide.referencesSlide and cover.lines, headerKeyLine, test helper exports TaskCheckbox and headerKeyLine (WIP) |
+| vfm | preview-bugs | 68797c3 | 0 | Docs: UC-48 to UC-52 and UC-55, REQ-321 to REQ-333, References slide, bullet sets on 2col, @cite in captions and lead-ins (WIP) |
+| vfm | preview-bugs | 0336383 | 217 | Tests: checkbox state, highlighted math, @cite in captions and lead-ins, slide captions, lines, 2col sets, References slide, stylesheet rules (WIP) |
+| vfm | preview-bugs | d7a526b | 285 | Impl: checkbox state, math in highlights, @cite in captions and lead-ins, no period in slide captions, data-line on figures and the title slide, bullet sets on 2col, References slide, stylesheet fixes for math, tables, video and figures |
 
-Total: 2983
+Total: 3942

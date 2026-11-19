@@ -3,3 +3,4 @@
 - [Sandbox limits](sandbox.md) — what could not be run here (Chrome, VS Code)
 - [Conformance suite](conformance.md) — vfm's CommonMark/GFM test harness, ledger and defects found
 - [Branching and gates](branching.md) — chain rules as practiced, coverage commands, sandbox quirks
+- [Preview bugs batch](preview-bugs.md) — 17 reported bugs: what changed, what was not reproduced, open question on the PDF item
